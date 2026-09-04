@@ -139,6 +139,15 @@ Checked with Claude Code 2.1.234 against throwaway projects. Verdicts come from
 the actual file state and the tool-call log, not from what the agent said it
 did.
 
+**`cairn init`** — run straight from GitHub with
+`npx github:Jammanb0/cairn init`.
+
+- The generated documents are identical to `template/`; the only difference is
+  the project-name line
+- With files already in the target folder it changes nothing, stops, and points
+  at the procedure for existing projects. An empty folder is used as-is
+- Given no folder name it prints usage and stops
+
 **Applying to a project with records but no instruction files** — `README.md`,
 `TODO.md`, two commits.
 
