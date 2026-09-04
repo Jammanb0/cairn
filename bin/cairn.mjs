@@ -20,6 +20,15 @@ const USAGE = `cairn — AI 코딩 에이전트와 일할 때 쓰는 문서 골�
   git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
 `;
 
+// 셸에 그대로 붙여 넣을 수 있게 경로를 인용한다.
+// POSIX 셸 기준이며, PowerShell도 작은따옴표를 같은 방식으로 받는다.
+function shellQuote(value) {
+  if (/^[A-Za-z0-9._:@%+,\/-]+$/.test(value)) return value;
+  const q = String.fromCharCode(39);
+  const esc = q + String.fromCharCode(92) + q + q;
+  return q + value.split(q).join(esc) + q;
+}
+
 function fail(message) {
   process.stderr.write(`${message}\n`);
   process.exit(1);
@@ -74,7 +83,7 @@ async function init(rawTarget) {
         ? `프로젝트 이름은 ${name} 으로 넣었습니다. `
         : "프로젝트 이름 자리를 찾지 못해 그대로 두었습니다. ") +
       "나머지는 직접 채웁니다.\n\n" +
-      `  cd ${rawTarget}\n` +
+      `  cd ${shellQuote(rawTarget)}\n` +
       '  grep -rnE "채우기|고르기" AGENTS.md .agents/\n\n' +
       "에이전트에게 맡기려면 이렇게 말하면 됩니다.\n\n" +
       "  AGENTS.md와 .agents/의 채우기 자리를 이 프로젝트에 맞게 채워줘.\n" +
