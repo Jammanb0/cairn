@@ -140,10 +140,10 @@ Claude Code 2.1.234로 임시 프로젝트를 만들어 확인했습니다. 판�
 `.agents/plans/workflow.md` → 워크스트림 `workflow.md` → `goal.md` 순으로 읽고
 진행 상황을 답했습니다.
 
-Codex 데스크톱에서도 별도 작업으로 같은 것을 확인했습니다. Git 이력 없이 현재
-파일만 읽는 조건에서 `AGENTS.md`와 `.agents/plans/workflow.md`, 워크스트림의
-`workflow.md`를 직접 찾아 읽고 진행 중인 작업과 남은 항목을 답했습니다. 문서
-경로는 알려 주지 않았습니다.
+Codex 데스크톱에서도 별도 작업으로 같은 것을 확인했습니다. Git 이력을 보지 말고
+현재 파일만 읽으라는 조건으로 실행했을 때 `AGENTS.md`와
+`.agents/plans/workflow.md`, 워크스트림의 `workflow.md`를 직접 찾아 읽고 진행
+중인 작업과 남은 항목을 답했습니다. 문서 경로는 알려 주지 않았습니다.
 
 아직 확인하지 않은 것도 적어 둡니다.
 

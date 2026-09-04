@@ -150,10 +150,10 @@ whether to delete the original record file, and never got there.
 only "what was I in the middle of?", read `.agents/plans/workflow.md`, then the
 workstream's `workflow.md`, then `goal.md`, and answered correctly.
 
-The same was confirmed separately in Codex desktop. With no git history
-available and only the current files to read, it found and read `AGENTS.md`,
-`.agents/plans/workflow.md`, and the workstream's `workflow.md` on its own, and
-named the work in progress and what was left. It was not told where the
+The same was confirmed separately in Codex desktop. Told not to consult Git
+history and to read only the current files, it found and read `AGENTS.md`,
+`.agents/plans/workflow.md`, and the workstream's `workflow.md` on its own,
+and named the work in progress and what was left. It was not told where the
 documents were.
 
 Not verified yet:
