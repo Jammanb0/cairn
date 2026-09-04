@@ -36,7 +36,7 @@ async function fillProjectName(target, name) {
   const before = await readFile(path, "utf8");
   const after = before
     .replace("<!-- 채우기: 프로젝트 이름 -->\n", "")
-    .replace("# 프로젝트 이름", `# ${name}`);
+    .replace("# 프로젝트 이름", () => `# ${name}`);
   if (after === before) {
     return false;
   }
@@ -74,7 +74,8 @@ async function init(rawTarget) {
         ? `프로젝트 이름은 ${name} 으로 넣었습니다. `
         : "프로젝트 이름 자리를 찾지 못해 그대로 두었습니다. ") +
       "나머지는 직접 채웁니다.\n\n" +
-      "  grep -rnE \"채우기\|고르기\" AGENTS.md .agents/\n\n" +
+      `  cd ${rawTarget}\n` +
+      '  grep -rnE "채우기|고르기" AGENTS.md .agents/\n\n' +
       "에이전트에게 맡기려면 이렇게 말하면 됩니다.\n\n" +
       "  AGENTS.md와 .agents/의 채우기 자리를 이 프로젝트에 맞게 채워줘.\n" +
       "  확인되지 않는 것은 지어내지 말고 확인 필요로 남겨줘.\n"

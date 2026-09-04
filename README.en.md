@@ -147,6 +147,7 @@ did.
 - With files already in the target folder it changes nothing, stops, and points
   at the procedure for existing projects. An empty folder is used as-is
 - Given no folder name it prints usage and stops
+- A name containing replacement syntax such as `$&` does not corrupt the title
 
 **Applying to a project with records but no instruction files** — `README.md`,
 `TODO.md`, two commits.
