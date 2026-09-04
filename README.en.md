@@ -39,12 +39,36 @@ CLAUDE.md              one line: "@AGENTS.md"
     workstreams/<name>/  one folder per piece of work that spans several days
 ```
 
-Markdown files only. Nothing to install, nothing to run.
+The skeleton is markdown files only. There is one `cairn init` command that
+creates a new folder for you, but you never have to use it — copying gets you
+the same result.
 
 The documents are written in Korean. Translate them if you work in another
 language — the structure doesn't depend on the language.
 
 ## Getting it
+
+### Starting something new
+
+If you're starting from an empty folder, one line does it. Needs Node 18 or
+later; nothing to install.
+
+```bash
+npx github:Jammanb0/cairn init my-project
+```
+
+That creates `my-project/` with `AGENTS.md`, `CLAUDE.md`, and `.agents/`. It
+fills in the project name and leaves every other `<!-- 채우기: -->` (fill in)
+marker alone. If the target folder already has files in it, it changes nothing
+and stops.
+
+To find what's left to fill in:
+
+```bash
+grep -rnE "채우기|고르기" AGENTS.md .agents/
+```
+
+### Adding it to a project you're already working on
 
 Don't drop the files into your project. Clone it beside your work as one folder.
 Nothing you already have is touched.
@@ -55,8 +79,11 @@ git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
 
 You may want to commit while applying it, so add `.cairn/` to `.gitignore`
 first. Cleaning up afterwards is covered by "Cleanup" in `APPLY.md`.
-
 ## Applying it
+
+Applying means adding this to a project you are already working on. If you are
+starting fresh, the `cairn init` line above is the whole story and you can skip
+this section.
 
 The procedure lives in [`APPLY.md`](APPLY.md). Hand it to an agent, or read it
 and do the steps yourself.
@@ -69,9 +96,8 @@ Preserve the existing rules and records, and show me the changes to the
 instruction files before applying them.
 ```
 
-Doing it by hand: for a new project, copy `template/` and fill in the
-`<!-- 채우기: -->` (fill in) spots. For an existing project there are extra
-steps — carrying existing documents over and wiring them up.
+Doing it by hand: follow `APPLY.md` in order. Carrying the existing documents
+over and wiring them up is the part that matters.
 
 When it's done, delete the `.cairn/` folder.
 

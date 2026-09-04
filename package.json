@@ -1,0 +1,22 @@
+{
+  "name": "cairn-agents",
+  "version": "0.1.0",
+  "description": "A markdown skeleton that keeps rules and context in place while working with AI coding agents",
+  "type": "module",
+  "bin": {
+    "cairn": "bin/cairn.mjs"
+  },
+  "files": [
+    "bin",
+    "template",
+    "APPLY.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jammanb0/cairn.git"
+  }
+}
