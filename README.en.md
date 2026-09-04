@@ -137,69 +137,27 @@ works.
 
 ## How far this has been verified
 
-Checked with Claude Code 2.1.234 against throwaway projects. Verdicts come from
-the actual file state and the tool-call log, not from what the agent said it
-did.
+Checked with Claude Code 2.1.234 and Codex desktop against throwaway projects.
+Verdicts come from the actual file state and the tool-call log, not from what
+the agent said it did. Starting conditions, pass criteria, and results are in
+[`docs/trials/README.md`](docs/trials/README.md) (Korean).
 
-**`cairn init`** — run straight from GitHub with
-`npx --yes github:Jammanb0/cairn init`.
+Confirmed:
 
-- The generated documents are identical to `template/`; the only difference is
-  the project-name line
-- With files already in the target folder it changes nothing, stops, and points
-  at the procedure for existing projects. An empty folder is used as-is
-- Given no folder name it prints usage and stops
-- A name containing replacement syntax such as `$&` does not corrupt the title
-
-**Applying to a project with records but no instruction files** — `README.md`,
-`TODO.md`, two commits.
-
-- Step 0 of `APPLY.md` routed it as an existing project
-- It proposed changes and stopped to ask instead of copying
-- The in-progress, finished, and someday sections of `TODO.md` went to a
-  workstream, `history.md`, and `ideas.md` respectively
-
-**Applying to a project that already had `AGENTS.md` and `.agents/`** — seeded
-with rules that clash with the skeleton's defaults (response language, commit
-approval, commit message format).
-
-- Zero file writes before approval
-- It asked about all four clashes rather than deciding
-- After approval, every existing rule and record survived, in its new place
-- It asked before deleting the original record file
-
-**Applying to a project with body content in `CLAUDE.md`**
-
-- Zero file writes before approval
-- Constraints moved to "하지 않는 것" (what not to do) in `AGENTS.md`, work in
-  progress moved to a workstream, and `CLAUDE.md` became the one-line import
-- Anything it had no evidence for was left marked as needing confirmation
-  instead of invented
-
-**Cleanup** — with the pre-delete check forced to fail. Two of the three
-projects above reached the cleanup step; the third stopped earlier, asking
-whether to delete the original record file, and never got there.
-
-- Both kept `.cairn/` instead of deleting it, including an edit left inside the
-  folder
-- Both reported that they could not confirm
-
-**Finding the documents afterwards** — a fresh session with no context, asked
-only "what was I in the middle of?", read `.agents/plans/workflow.md`, then the
-workstream's `workflow.md`, then `goal.md`, and answered correctly.
-
-The same was confirmed separately in Codex desktop. Told not to consult Git
-history and to read only the current files, it found and read `AGENTS.md`,
-`.agents/plans/workflow.md`, and the workstream's `workflow.md` on its own,
-and named the work in progress and what was left. It was not told where the
-documents were.
+- `cairn init` produces documents identical to `template/`, and changes nothing
+  and stops when the target folder already has files (Node 18 and 22)
+- Applying to a project that already has instruction files and records: no
+  writes before approval, existing rules kept, clashes raised as questions
+- Cleanup stops and keeps `.cairn/` when the pre-delete check fails
+- After applying, a fresh session finds and reads `.agents/plans/workflow.md`
+  on its own and reports what's in progress — in both Claude Code and Codex
 
 Not verified yet:
 
-- **Applying and cleanup in Codex.** The application and cleanup runs above were
-  all Claude Code; only document discovery was confirmed in Codex
+- **Applying and cleanup in Codex.** Only document discovery was confirmed there
 - Projects with several workstreams at once, or an established document system
   of their own
 - The long-run flow of finishing a workstream and moving it to the archive
+- Operating systems other than Windows
 
 If something doesn't hold up in practice, please open an issue.
