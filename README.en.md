@@ -138,19 +138,28 @@ approval, commit message format).
 - Anything it had no evidence for was left marked as needing confirmation
   instead of invented
 
-**Cleanup** — with the pre-delete check forced to fail.
+**Cleanup** — with the pre-delete check forced to fail. Two of the three
+projects above reached the cleanup step; the third stopped earlier, asking
+whether to delete the original record file, and never got there.
 
-- All three runs kept `.cairn/` instead of deleting it, including an edit left
-  inside the folder
-- Each reported that it could not confirm
+- Both kept `.cairn/` instead of deleting it, including an edit left inside the
+  folder
+- Both reported that they could not confirm
 
 **Finding the documents afterwards** — a fresh session with no context, asked
 only "what was I in the middle of?", read `.agents/plans/workflow.md`, then the
 workstream's `workflow.md`, then `goal.md`, and answered correctly.
 
+The same was confirmed separately in Codex desktop. With no git history
+available and only the current files to read, it found and read `AGENTS.md`,
+`.agents/plans/workflow.md`, and the workstream's `workflow.md` on its own, and
+named the work in progress and what was left. It was not told where the
+documents were.
+
 Not verified yet:
 
-- **Other tools, Codex included.** Every run above was Claude Code
+- **Applying and cleanup in Codex.** The application and cleanup runs above were
+  all Claude Code; only document discovery was confirmed in Codex
 - Projects with several workstreams at once, or an established document system
   of their own
 - The long-run flow of finishing a workstream and moving it to the archive
