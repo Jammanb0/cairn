@@ -21,7 +21,7 @@ const USAGE = `cairn — AI 코딩 에이전트와 일할 때 쓰는 문서 골�
 `;
 
 // 셸에 그대로 붙여 넣을 수 있게 경로를 인용한다.
-// POSIX 셸 기준이며, PowerShell도 작은따옴표를 같은 방식으로 받는다.
+// POSIX 셸(bash, zsh 등) 기준이다. PowerShell은 작은따옴표 이스케이프 방식이 다르다.
 function shellQuote(value) {
   if (/^[A-Za-z0-9._:@%+,\/-]+$/.test(value)) return value;
   const q = String.fromCharCode(39);
@@ -82,7 +82,7 @@ async function init(rawTarget) {
       (named
         ? `프로젝트 이름은 ${name} 으로 넣었습니다. `
         : "프로젝트 이름 자리를 찾지 못해 그대로 두었습니다. ") +
-      "나머지는 직접 채웁니다.\n\n" +
+      "나머지는 직접 채웁니다. 아래는 bash 같은 POSIX 셸 기준입니다.\n\n" +
       `  cd ${shellQuote(rawTarget)}\n` +
       '  grep -rnE "채우기|고르기" AGENTS.md .agents/\n\n' +
       "에이전트에게 맡기려면 이렇게 말하면 됩니다.\n\n" +
