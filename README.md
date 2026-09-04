@@ -44,20 +44,22 @@ CLAUDE.md              "@AGENTS.md" 한 줄
 
 ### 새로 시작할 때
 
-빈 폴더에서 시작하는 것이라면 한 줄이면 됩니다. Node 18 이상이 필요하고, 따로
-설치하지 않아도 됩니다.
+빈 폴더에서 시작하는 것이라면 한 줄로 골격이 만들어집니다. Node 18 이상과
+Git이 필요하고, 따로 설치할 것은 없습니다.
 
 ```bash
-npx github:Jammanb0/cairn init my-project
+npx --yes github:Jammanb0/cairn init my-project
 ```
 
 `my-project/`를 만들고 `AGENTS.md`, `CLAUDE.md`, `.agents/`를 넣습니다. 프로젝트
 이름만 채워 넣고, 나머지 `<!-- 채우기: -->` 자리는 그대로 둡니다. 대상 폴더에
 이미 파일이 있으면 아무것도 바꾸지 않고 멈춥니다.
 
-남은 자리는 이렇게 찾습니다.
+여기까지가 골격 생성입니다. 프로젝트별 빈칸은 이어서 채웁니다. 남은 자리는
+이렇게 찾습니다.
 
 ```bash
+cd my-project
 grep -rnE "채우기|고르기" AGENTS.md .agents/
 ```
 
@@ -76,7 +78,7 @@ git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
 ## 적용하는 법
 
 여기서 말하는 적용은 이미 작업 중인 프로젝트에 넣는 경우입니다. 새로 시작하는
-것이라면 위의 `cairn init` 한 줄로 끝나므로 이 절은 건너뛰어도 됩니다.
+것이라면 위의 `cairn init`으로 골격이 만들어지므로 이 절은 건너뛰어도 됩니다.
 
 절차는 [`APPLY.md`](APPLY.md)에 있습니다. 에이전트에게 시켜도 되고 직접 읽고
 따라 해도 됩니다.
@@ -129,8 +131,8 @@ AI 없이도 쓸 수 있습니다. 마크다운 문서라서 사람이 읽고 �
 Claude Code 2.1.234로 임시 프로젝트를 만들어 확인했습니다. 판정은 에이전트의
 보고가 아니라 실제 파일 상태와 도구 호출 기록으로 했습니다.
 
-**`cairn init`.** `npx github:Jammanb0/cairn init`으로 GitHub에서 바로 실행해
-확인했습니다.
+**`cairn init`.** `npx --yes github:Jammanb0/cairn init`으로 GitHub에서 바로
+실행해 확인했습니다.
 
 - 만들어진 문서가 `template/`과 완전히 같음. 다른 것은 프로젝트 이름 한 줄뿐
 - 대상 폴더에 파일이 있으면 아무것도 바꾸지 않고 멈추고, 기존 프로젝트용 절차를

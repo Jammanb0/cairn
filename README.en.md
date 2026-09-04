@@ -50,11 +50,11 @@ language — the structure doesn't depend on the language.
 
 ### Starting something new
 
-If you're starting from an empty folder, one line does it. Needs Node 18 or
-later; nothing to install.
+If you're starting from an empty folder, one line builds the skeleton. Needs
+Node 18 or later and Git; nothing to install.
 
 ```bash
-npx github:Jammanb0/cairn init my-project
+npx --yes github:Jammanb0/cairn init my-project
 ```
 
 That creates `my-project/` with `AGENTS.md`, `CLAUDE.md`, and `.agents/`. It
@@ -62,9 +62,11 @@ fills in the project name and leaves every other `<!-- 채우기: -->` (fill in)
 marker alone. If the target folder already has files in it, it changes nothing
 and stops.
 
-To find what's left to fill in:
+That's the skeleton built; the project-specific blanks come next. To find
+what's left:
 
 ```bash
+cd my-project
 grep -rnE "채우기|고르기" AGENTS.md .agents/
 ```
 
@@ -82,8 +84,8 @@ first. Cleaning up afterwards is covered by "Cleanup" in `APPLY.md`.
 ## Applying it
 
 Applying means adding this to a project you are already working on. If you are
-starting fresh, the `cairn init` line above is the whole story and you can skip
-this section.
+starting fresh, the `cairn init` line above builds the skeleton and you can
+skip this section.
 
 The procedure lives in [`APPLY.md`](APPLY.md). Hand it to an agent, or read it
 and do the steps yourself.
@@ -140,7 +142,7 @@ the actual file state and the tool-call log, not from what the agent said it
 did.
 
 **`cairn init`** — run straight from GitHub with
-`npx github:Jammanb0/cairn init`.
+`npx --yes github:Jammanb0/cairn init`.
 
 - The generated documents are identical to `template/`; the only difference is
   the project-name line
