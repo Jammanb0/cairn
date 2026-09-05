@@ -9,6 +9,7 @@
   "files": [
     "bin",
     "template",
+    "setup-workstream",
     "APPLY.md"
   ],
   "engines": {
