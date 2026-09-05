@@ -98,10 +98,15 @@ Preserve the existing rules and records, and show me the changes to the
 instruction files before applying them.
 ```
 
-Doing it by hand: follow `APPLY.md` in order. Carrying the existing documents
-over and wiring them up is the part that matters.
+Doing it by hand: follow `APPLY.md` in order.
 
-When it's done, delete the `.cairn/` folder.
+`APPLY.md` takes you through surveying the project, asking what needs asking,
+and creating a "cairn setup" workstream inside it. The actual carrying-over and
+wiring-up lives in that workstream's `workflow.md`. Applying cairn is treated
+as a piece of work in its own right, so if it stops halfway, where you got to
+is written down.
+
+When it's done, archive that workstream and delete the `.cairn/` folder.
 
 ## What to watch out for in an existing project
 
@@ -147,13 +152,20 @@ Confirmed:
 - `cairn init` produces documents identical to `template/`, and changes nothing
   and stops when the target folder already has files (Node 18 and 22)
 - Applying to a project that already has instruction files and records: no
-  writes before approval, existing rules kept, clashes raised as questions
-- Cleanup stops and keeps `.cairn/` when the pre-delete check fails
+  writes before approval, existing rules kept, clashes raised as questions.
+  **This was checked against the direct apply procedure that preceded the setup
+  workstream**
+- Cleanup stops and keeps `.cairn/` when the pre-delete check fails (same
+  point in time)
 - After applying, a fresh session finds and reads `.agents/plans/workflow.md`
   on its own and reports what's in progress — in both Claude Code and Codex
 
 Not verified yet:
 
+- **The current setup-workstream flow end to end.** Bootstrap, carrying over,
+  finishing, archiving — none of it has been run. The paths for a project that
+  does not commit `.agents/`, a root `workflow.md` in a different format, and a
+  `CLAUDE.md` with body content exist only on paper
 - **Applying and cleanup in Codex.** Only document discovery was confirmed there
 - Projects with several workstreams at once, or an established document system
   of their own
