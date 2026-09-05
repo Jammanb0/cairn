@@ -36,7 +36,7 @@ CLAUDE.md              one line: "@AGENTS.md"
     workflow.md        what you're working on now and what's next
     history.md         a short index of finished work
     ideas.md           candidates you haven't committed to yet
-    workstreams/<name>/  one folder per piece of work that spans several days
+    workstreams/<number>-<name>/  one folder per piece of work spanning days
 ```
 
 The skeleton is markdown files only. There is one `cairn init` command that

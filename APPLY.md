@@ -121,10 +121,10 @@ grep -rn "채우기\|고르기" AGENTS.md .agents/
 
 | 무엇 | 어디로 |
 | --- | --- |
-| 진행 중인 작업의 상세 기록 | `.agents/plans/workstreams/<이름>/workflow.md` |
+| 진행 중인 작업의 상세 기록 | `.agents/plans/workstreams/<번호>-<이름>/workflow.md` |
 | 그 작업의 배경·범위·완료 조건 | 같은 폴더의 `README.md` |
 | 진행 중인 작업이 어디 있는지 가리키는 줄 | 루트 `.agents/plans/workflow.md` |
-| 이미 끝난 작업의 상세 기록 | `.agents/archive/workstreams/<이름>/` |
+| 이미 끝난 작업의 상세 기록 | `.agents/archive/workstreams/<번호>-<이름>/` |
 | 끝난 작업의 한 줄 요약과 보관 위치 | `.agents/plans/history.md` |
 | 아직 착수를 약속하지 않은 것 | `.agents/plans/ideas.md` |
 

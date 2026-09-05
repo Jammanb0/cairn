@@ -22,18 +22,18 @@
 | --- | --- |
 | 다 됐다고 보고하기 전 | `.agents/rules/verification.md` |
 | 답변을 쓸 때 | `.agents/rules/communication.md` |
-| 지난 작업을 이어받을 때 | `.agents/plans/workflow.md` |
+| 지난 작업을 이어받거나 대작업을 시작·완료할 때 | `.agents/plans/workflow.md` |
 | 계획 문서의 구조를 확인할 때 | `.agents/plans/README.md` |
 | 무엇이 왜 정해졌는지 확인할 때 | 해당 대작업의 `workflow.md`와, 별도 근거가 있을 때 `decisions.md` |
 | 목표와 전체 범위를 볼 때 | `.agents/plans/goal.md` |
 | 향후 아이디어를 볼 때 | `.agents/plans/ideas.md` |
-| 완료된 대작업을 찾을 때 | `.agents/plans/history.md` |
+| 마친 대작업을 찾을 때 | `.agents/plans/history.md` |
 <!-- 채우기: 이 프로젝트에만 있는 문서를 여기에 한 줄씩 더합니다.
      예) | 배포 절차를 다룰 때 | `docs/DEPLOY.md` | -->
 
 `.agents/`는 프로젝트 운영 기록입니다. 현재 상태는 진행 중인 대작업의
-`workflow.md`에서 관리합니다. 대작업이 완료되면 `history.md`에 짧게 기록하고
-해당 폴더를 `.agents/archive/workstreams/`로 옮깁니다.
+`workflow.md`에서 관리합니다. 대작업을 마치면 완료든 취소든 `history.md`에 짧게
+기록하고 해당 폴더를 `.agents/archive/workstreams/`로 옮깁니다.
 
 <!-- 고르기: `.agents/`를 커밋할지 정하고 아래 둘 중 하나만 남깁니다.
      커밋한다: 기록이 저장소에 함께 남아 다른 기기와 협업자에게 이어집니다.

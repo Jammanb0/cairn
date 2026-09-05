@@ -34,7 +34,7 @@ CLAUDE.md              "@AGENTS.md" 한 줄
     workflow.md        지금 무슨 작업 중이고 다음이 무엇인지
     history.md         끝낸 작업의 짧은 색인
     ideas.md           아직 착수를 약속하지 않은 후보
-    workstreams/<이름>/  여러 날에 걸치는 작업 하나당 폴더 하나
+    workstreams/<번호>-<이름>/  여러 날에 걸치는 작업 하나당 폴더 하나
 ```
 
 골격은 마크다운 문서뿐입니다. 새 폴더를 만들어 주는 `cairn init` 명령이 하나
