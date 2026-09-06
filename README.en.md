@@ -137,7 +137,7 @@ npx --yes github:Jammanb0/cairn check .
 Pin the tag when you need to reproduce the check with the same version:
 
 ```bash
-npx --yes github:Jammanb0/cairn#v0.1.1 check .
+npx --yes github:Jammanb0/cairn#v0.1.2 check .
 ```
 
 ### A brand-new project

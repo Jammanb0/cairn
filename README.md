@@ -122,7 +122,7 @@ npx --yes github:Jammanb0/cairn check .
 같은 검사기 버전으로 재현해야 하면 태그를 고정합니다.
 
 ```bash
-npx --yes github:Jammanb0/cairn#v0.1.1 check .
+npx --yes github:Jammanb0/cairn#v0.1.2 check .
 ```
 
 ### 아무것도 없는 새 프로젝트
