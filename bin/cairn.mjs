@@ -7,14 +7,17 @@ import { existsSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { check, format } from "../lib/check.mjs";
+
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TEMPLATE = join(ROOT, "template");
 
 const USAGE = `cairn — AI 코딩 에이전트와 일할 때 쓰는 문서 골격
 
   cairn init <폴더>   새 폴더를 만들고 골격을 넣습니다
+  cairn check [폴더]  골격이 실제로 이어져 있는지 검사합니다 (기본값: 지금 폴더)
 
-이미 작업 중인 프로젝트에는 이 명령을 쓰지 않습니다. 기존 규칙과 기록을
+이미 작업 중인 프로젝트에는 init 을 쓰지 않습니다. 기존 규칙과 기록을
 살리면서 합쳐야 하므로 APPLY.md의 절차를 따릅니다.
 
   git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
@@ -91,12 +94,24 @@ async function init(rawTarget) {
   );
 }
 
+// 문서가 서로 이어져 있는지 검사한다. 문제가 있으면 종료 코드 1로 끝낸다.
+function runCheck(rawTarget) {
+  const target = resolve(process.cwd(), rawTarget ?? ".");
+  if (!existsSync(target)) fail(`그런 폴더가 없습니다: ${rawTarget}`);
+
+  const result = check(target);
+  process.stdout.write(format(result));
+  if (result.problems.length) process.exit(1);
+}
+
 const [command, ...rest] = process.argv.slice(2);
 
 if (!command || command === "-h" || command === "--help" || command === "help") {
   process.stdout.write(USAGE);
 } else if (command === "init") {
   await init(rest[0]);
+} else if (command === "check") {
+  runCheck(rest[0]);
 } else {
   fail(`모르는 명령입니다: ${command}\n\n${USAGE}`);
 }
