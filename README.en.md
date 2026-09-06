@@ -115,6 +115,31 @@ Applying cairn is treated as a piece of work in its own right, so if it stops
 halfway, where you got to is written down in that workstream. When it's done,
 run `cairn check` to confirm the documents really connect.
 
+### After applying it once
+
+Apply cairn once per project. When setup is complete, `AGENTS.md`, `CLAUDE.md`,
+and `.agents/` become that project's own documents. From then on, update them
+through the normal workstream flow. Do not clone `.cairn/` again or repeat
+`APPLY.md` from the beginning.
+
+New cairn releases do not update an existing project's documents automatically.
+Those documents will have changed to fit the project, so replacing them with a
+new skeleton could discard rules or records. If you need a change from a newer
+release, review the difference and bring over only the relevant part. There is
+currently no upgrade command.
+
+You can check the applied structure at any time:
+
+```bash
+npx --yes github:Jammanb0/cairn check .
+```
+
+Pin the tag when you need to reproduce the check with the same version:
+
+```bash
+npx --yes github:Jammanb0/cairn#v0.1.1 check .
+```
+
 ### A brand-new project
 
 Needs Node 18 or later and Git; nothing to install.
