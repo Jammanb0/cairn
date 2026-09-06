@@ -295,3 +295,90 @@ test("루트에 적히지 않은 대작업은 통과로 적지 않는다", () =>
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+test("절차를 설명하는 문장 속 낱말은 자리표시자로 세지 않는다", () => {
+  const dir = project();
+  try {
+    const before = check(dir).notices.length;
+    appendFileSync(
+      join(dir, "AGENTS.md"),
+      `
+남은 채우기 자리는 고르기 표시와 함께 봅니다. 확인 필요도 마찬가지입니다.
+`
+    );
+    assert.equal(check(dir).notices.length, before, messages(check(dir)));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("아카이브는 자리표시자를 세지 않고, 끊긴 경로도 확인으로만 본다", () => {
+  const dir = project((d) => {
+    const path = join(d, ".agents/archive/workstreams/001-old");
+    mkdirSync(path, { recursive: true });
+    writeFileSync(join(path, "README.md"), `# 지난 대작업
+`);
+    writeFileSync(
+      join(path, "workflow.md"),
+      `# 진행
+
+<!-- 채우기: 그때 채우던 자리 -->
+
+당시에는 \`.agents/plans/gone.md\` 를 보고 있었습니다.
+`
+    );
+  });
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    assert.match(messages(result), /가리키는 .agents\/plans\/gone.md 가 지금은 없습니다/);
+    assert.ok(
+      !result.notices.some((f) => f.where.includes("001-old") && f.message.includes("채우지 않은")),
+      messages(result)
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("활성 문서에서 표식 모양을 인용해도 자리표시자로 세지 않는다", () => {
+  const dir = project();
+  try {
+    const before = check(dir).notices.length;
+    appendFileSync(
+      join(dir, ".agents/rules/communication.md"),
+      `
+실제 자리는 \`<!-- 채우기: 무엇을 -->\` 형태입니다.
+`
+    );
+    const after = check(dir);
+    assert.equal(after.notices.length, before, messages(after));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("아카이브에 끊긴 경로가 있으면 통과 문구가 그 사실을 밝힌다", () => {
+  const dir = project((d) => {
+    const path = join(d, ".agents/archive/workstreams/001-old");
+    mkdirSync(path, { recursive: true });
+    writeFileSync(join(path, "README.md"), `# 지난 대작업
+`);
+    writeFileSync(
+      join(path, "workflow.md"),
+      `# 진행
+
+당시에는 \`.agents/plans/gone.md\` 를 보고 있었습니다.
+`
+    );
+  });
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    const line = result.passed.find((p) => p.includes("가리키는 경로"));
+    assert.ok(line, result.passed.join(", "));
+    assert.match(line, /활성 문서가 가리키는 경로 \d+곳 \(아카이브 1곳은 아래 확인\)/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
