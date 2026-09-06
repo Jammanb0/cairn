@@ -46,31 +46,36 @@ the same result.
 The documents are written in Korean. Translate them if you work in another
 language — the structure doesn't depend on the language.
 
-## Getting it
+## Getting started
 
-### Starting something new
+### A brand-new project
 
-If you're starting from an empty folder, one line builds the skeleton. Needs
-Node 18 or later and Git; nothing to install.
+Needs Node 18 or later and Git; nothing to install.
 
 ```bash
 npx --yes github:Jammanb0/cairn init my-project
+cd my-project
 ```
 
-That creates `my-project/` with `AGENTS.md`, `CLAUDE.md`, and `.agents/`. It
-fills in the project name and leaves every other `<!-- 채우기: -->` (fill in)
-marker alone. If the target folder already has files in it, it changes nothing
-and stops.
+That builds the whole skeleton — shared rules and planning documents. There are
+no existing rules to carry over, so no setup workstream is created.
 
-That's the skeleton built; the project-specific blanks come next. To find
-what's left:
+The project name is filled in; the project-specific blanks, like your stack and
+verification commands, come next. To find what's left:
 
 ```bash
-cd my-project
 grep -rnE "채우기|고르기" AGENTS.md .agents/
 ```
 
-### Adding it to a project you're already working on
+(Those Korean markers mean "fill in" and "choose one".) You can hand it to an
+agent instead:
+
+```text
+Fill in the 채우기 (fill-in) spots in AGENTS.md and .agents/ for this project.
+Don't invent anything you can't confirm — mark it as 확인 필요 (needs checking).
+```
+
+### A project you're already working on
 
 Don't drop the files into your project. Clone it beside your work as one folder.
 Nothing you already have is touched.
@@ -79,18 +84,7 @@ Nothing you already have is touched.
 git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
 ```
 
-You may want to commit while applying it, so add `.cairn/` to `.gitignore`
-first. Cleaning up afterwards is covered by "Cleanup" in `APPLY.md`.
-## Applying it
-
-Applying means adding this to a project you are already working on. If you are
-starting fresh, the `cairn init` line above builds the skeleton and you can
-skip this section.
-
-The procedure lives in [`APPLY.md`](APPLY.md). Hand it to an agent, or read it
-and do the steps yourself.
-
-To hand it to an agent:
+Then ask Claude Code or Codex:
 
 ```text
 Read .cairn/APPLY.md and apply it to this project.
@@ -98,25 +92,28 @@ Preserve the existing rules and records, and show me the changes to the
 instruction files before applying them.
 ```
 
-Doing it by hand: follow `APPLY.md` in order.
+The agent surveys your existing rules and records and shows you the plan first.
+Once you approve, it creates a "cairn setup" workstream inside your project and
+carries everything over there; when that finishes, it archives the workstream
+and cleans up `.cairn/`.
 
-`APPLY.md` takes you through surveying the project, asking what needs asking,
-and creating a "cairn setup" workstream inside it. The actual carrying-over and
-wiring-up lives in that workstream's `workflow.md`. Applying cairn is treated
-as a piece of work in its own right, so if it stops halfway, where you got to
-is written down.
-
-When it's done, archive that workstream and delete the `.cairn/` folder.
-
-## What to watch out for in an existing project
+Commits happen along the way, so the agent adds `.cairn/` to `.gitignore`
+temporarily and removes just that line when it is done.
 
 **Copying the files is not the same as applying them.** If you leave your
 existing `AGENTS.md` alone and only add `.agents/`, nothing tells anyone to read
-that folder, so nobody does. The files exist and nothing happens.
+that folder, so nobody does. That's why `APPLY.md` is built around carrying
+things over and wiring them up rather than copying. Existing rules stay; where
+they clash with the skeleton, it stops and asks you instead of deciding on its
+own.
 
-That's why `APPLY.md` is built around carrying things over and wiring them up
-rather than copying. Existing rules stay; where they clash with the skeleton, it
-stops and asks you instead of deciding on its own.
+Applying cairn is treated as a piece of work in its own right, so if it stops
+halfway, where you got to is written down in that workstream.
+
+### Doing it without AI
+
+Read `.cairn/APPLY.md` and `.cairn/setup-workstream/workflow.md` as checklists
+and follow them in order. The work is the same either way.
 
 ## What you can change
 
@@ -143,33 +140,37 @@ works.
 ## How far this has been verified
 
 Checked with Claude Code 2.1.234 and Codex desktop against throwaway projects.
-Verdicts come from the actual file state and the tool-call log, not from what
-the agent said it did. Starting conditions, pass criteria, and results are in
-[`docs/trials/README.md`](docs/trials/README.md) (Korean).
+Verdicts come from the actual file state, `git log`, and the tool-call log, not
+from what the agent said it did. Starting conditions, pass criteria, and results
+are in [`docs/trials/README.md`](docs/trials/README.md) (Korean).
 
 Confirmed:
 
 - `cairn init` produces documents identical to `template/`, and changes nothing
   and stops when the target folder already has files (Node 18 and 22)
-- Applying to a project that already has instruction files and records: no
-  writes before approval, existing rules kept, clashes raised as questions.
-  **This was checked against the direct apply procedure that preceded the setup
-  workstream**
-- Cleanup stops and keeps `.cairn/` when the pre-delete check fails (same
-  point in time)
+- **The setup-workstream flow end to end, in a local repository with no
+  remote** — for a project with an existing `AGENTS.md` and `TODO.md`, and for
+  one with body content in `CLAUDE.md`: bootstrap commit, carrying everything
+  over, archiving the setup workstream, merging into the target branch, and
+  deleting the work branch
+- No writes before approval, existing rules kept, clashes raised as questions
+- Cleanup stops and keeps `.cairn/` when the pre-delete check fails
 - After applying, a fresh session finds and reads `.agents/plans/workflow.md`
   on its own and reports what's in progress — in both Claude Code and Codex
 
+Partly confirmed:
+
+- Choosing not to commit `.agents/` — checked through bootstrap and picking the
+  work back up, but not carrying over, finishing, or archiving in that state
+- A root `workflow.md` in a format other than cairn's — checked only as far as
+  preserving the existing format and adding the pointer line
+
 Not verified yet:
 
-- **The current setup-workstream flow end to end.** Bootstrap, carrying over,
-  finishing, archiving — none of it has been run. The paths for a project that
-  does not commit `.agents/`, a root `workflow.md` in a different format, and a
-  `CLAUDE.md` with body content exist only on paper
-- **Applying and cleanup in Codex.** Only document discovery was confirmed there
-- Projects with several workstreams at once, or an established document system
-  of their own
-- The long-run flow of finishing a workstream and moving it to the archive
+- **Applying, merging, and cleanup in Codex.** Only document discovery was
+  confirmed there
+- Landing the work when a remote exists — remote work branch, PR, remote merge
+- Projects with several workstreams at once
 - Operating systems other than Windows
 
 If something doesn't hold up in practice, please open an issue.
