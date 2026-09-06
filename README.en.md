@@ -69,9 +69,10 @@ CLAUDE.md              one line: "@AGENTS.md"
     workstreams/<number>-<name>/  one folder per piece of work spanning days
 ```
 
-The skeleton is markdown files only. There is one `cairn init` command that
-creates a new folder for you, but you never have to use it — copying gets you
-the same result.
+The skeleton is markdown files only. There are two commands and you need
+neither: `cairn init` drops the skeleton into a new folder, and `cairn check`
+verifies that the documents actually point at each other. Copying gets you the
+same result, and you can do the checking by eye.
 
 The documents are written in Korean. Translate them if you work in another
 language — the structure doesn't depend on the language.
@@ -111,7 +112,8 @@ they clash with the skeleton, it stops and asks you instead of deciding on its
 own.
 
 Applying cairn is treated as a piece of work in its own right, so if it stops
-halfway, where you got to is written down in that workstream.
+halfway, where you got to is written down in that workstream. When it's done,
+run `cairn check` to confirm the documents really connect.
 
 ### A brand-new project
 
@@ -142,6 +144,16 @@ agent instead:
 Fill in the 채우기 (fill-in) spots in AGENTS.md and .agents/ for this project.
 Don't invent anything you can't confirm — mark it as 확인 필요 (needs checking).
 ```
+
+Then check your work:
+
+```bash
+npx --yes github:Jammanb0/cairn check
+```
+
+It reports pointers to files that don't exist, a `CLAUDE.md` that doesn't lead
+to `AGENTS.md`, blanks you haven't filled, and workstreams that don't match
+what the plan says. It exits 1 when something is wrong, so it fits in CI.
 
 ### Using Codex or Claude Code desktop
 
