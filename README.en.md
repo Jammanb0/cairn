@@ -2,8 +2,11 @@
 
 [한국어](README.md)
 
-A markdown skeleton that keeps rules and context from scattering while you work
-with AI coding agents.
+A work skeleton you lay over a project that is already running. It surveys the
+rules and progress notes you already have and carries them over instead of
+overwriting them. Codex and Claude Code read the same source with no generation
+or sync step. Work spanning several sessions carries forward through
+workstreams, and through Git history in projects that commit `.agents/`.
 
 A cairn is a stack of stones left along a mountain trail. It doesn't make the
 path for you, but it tells the next person — or you, coming back — how far
@@ -20,6 +23,33 @@ Two things keep happening when you work with an agent over several days.
 
 This skeleton keeps the single source of rules in `AGENTS.md`, points
 `CLAUDE.md` at it, and tracks progress in one place under `.agents/plans/`.
+
+## How it differs
+
+Plenty of tools already collapse agent rule files into one source
+([ai-rules-sync](https://github.com/PanisHandsome/ai-rules-sync),
+[rulesync](https://github.com/dyoshikawa/rulesync)). Keeping session context in
+markdown is an established practice too
+([Cline Memory Bank](https://docs.cline.bot/best-practices/memory-bank)), and there
+are full spec-driven systems ([Spec Kit](https://github.com/github/spec-kit),
+[Agent OS](https://buildermethods.com/agent-os),
+[BMAD](https://github.com/bmad-code-org/BMAD-METHOD)).
+
+cairn focuses on two areas.
+
+- **It carries over progress, not just rules.** Scattered `TODO.md` files and
+  handoff notes get surveyed and placed, rules that clash get raised with you,
+  and it checks that the entry points actually lead to the new documents.
+  Applying it is tracked as a piece of work in itself, so a half-finished
+  application picks back up.
+- **Where you work becomes part of the context.** The base branch, the branch
+  that receives the result, and whether to leave a remote branch and PR are
+  settled up front and written into the plan. We did not find the same thing in
+  the documentation of the tools we compared.
+
+What it doesn't have is just as clear. No command or hook enforces the
+procedure — following it is up to you and the agent. It won't convert your
+rules into Cursor or Copilot formats either.
 
 ## What's in it
 
@@ -47,33 +77,6 @@ The documents are written in Korean. Translate them if you work in another
 language — the structure doesn't depend on the language.
 
 ## Getting started
-
-### A brand-new project
-
-Needs Node 18 or later and Git; nothing to install.
-
-```bash
-npx --yes github:Jammanb0/cairn init my-project
-cd my-project
-```
-
-That builds the whole skeleton — shared rules and planning documents. There are
-no existing rules to carry over, so no setup workstream is created.
-
-The project name is filled in; the project-specific blanks, like your stack and
-verification commands, come next. To find what's left:
-
-```bash
-grep -rnE "채우기|고르기" AGENTS.md .agents/
-```
-
-(Those Korean markers mean "fill in" and "choose one".) You can hand it to an
-agent instead:
-
-```text
-Fill in the 채우기 (fill-in) spots in AGENTS.md and .agents/ for this project.
-Don't invent anything you can't confirm — mark it as 확인 필요 (needs checking).
-```
 
 ### A project you're already working on
 
@@ -109,6 +112,36 @@ own.
 
 Applying cairn is treated as a piece of work in its own right, so if it stops
 halfway, where you got to is written down in that workstream.
+
+### A brand-new project
+
+Needs Node 18 or later and Git; nothing to install.
+
+```bash
+npx --yes github:Jammanb0/cairn init my-project
+cd my-project
+```
+
+That builds the whole skeleton — shared rules and planning documents. There are
+no existing rules to carry over, so no setup workstream is created.
+
+If this folder is going to be its own Git repository, check that it isn't
+inside an existing one, then run `git init`.
+
+The project name is filled in; the project-specific blanks, like your stack and
+verification commands, come next. To find what's left:
+
+```bash
+grep -rnE "채우기|고르기" AGENTS.md .agents/
+```
+
+(Those Korean markers mean "fill in" and "choose one".) You can hand it to an
+agent instead:
+
+```text
+Fill in the 채우기 (fill-in) spots in AGENTS.md and .agents/ for this project.
+Don't invent anything you can't confirm — mark it as 확인 필요 (needs checking).
+```
 
 ### Using Codex or Claude Code desktop
 
