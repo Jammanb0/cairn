@@ -160,8 +160,10 @@ Confirmed:
 
 Partly confirmed:
 
-- Choosing not to commit `.agents/` — checked through bootstrap and picking the
-  work back up, but not carrying over, finishing, or archiving in that state
+- Choosing not to commit `.agents/` — checked as far as the bootstrap commit,
+  the work branch, and the pointer line being left in place. A fresh session
+  actually picking the work back up from that pointer, and carrying over,
+  finishing, or archiving in that state, were not run
 - A root `workflow.md` in a format other than cairn's — checked only as far as
   preserving the existing format and adding the pointer line
 
