@@ -110,10 +110,36 @@ own.
 Applying cairn is treated as a piece of work in its own right, so if it stops
 halfway, where you got to is written down in that workstream.
 
+### Using Codex or Claude Code desktop
+
+The `npx` and `git clone` commands above only put the cairn files in your
+project. Run them in the app terminal or a regular terminal, then open the
+project folder in Codex or Claude Code desktop.
+
+- In a new project, Codex reads `AGENTS.md`, while Claude Code follows
+  `@AGENTS.md` from `CLAUDE.md` to the same rules. Ask it to fill in the
+  project-specific blanks.
+- In an existing project, open the folder and use the `.cairn/APPLY.md` prompt
+  above.
+- A regular chat without access to your local project files cannot apply the
+  structure automatically.
+
 ### Doing it without AI
 
 Read `.cairn/APPLY.md` and `.cairn/setup-workstream/workflow.md` as checklists
 and follow them in order. The work is the same either way.
+
+## Larger work and branches
+
+There is no default place to work for a workstream. At the start, cairn asks
+whether to work directly on the branch you want or create a separate local work
+branch.
+
+If you choose a local work branch, it then asks which branch to start from,
+which branch should receive the result, and whether to leave a remote work branch
+and PR record. The work location, base branch, target branch, and remote-work
+record choice are written into the plan so the next session continues the same
+way.
 
 ## What you can change
 
@@ -136,43 +162,3 @@ you work with an agent, and that's where it earns its keep.
 
 It isn't tied to one tool. Anything that reads `AGENTS.md` and `CLAUDE.md`
 works.
-
-## How far this has been verified
-
-Checked with Claude Code 2.1.234 and Codex desktop against throwaway projects.
-Verdicts come from the actual file state, `git log`, and the tool-call log, not
-from what the agent said it did. Starting conditions, pass criteria, and results
-are in [`docs/trials/README.md`](docs/trials/README.md) (Korean).
-
-Confirmed:
-
-- `cairn init` produces documents identical to `template/`, and changes nothing
-  and stops when the target folder already has files (Node 18 and 22)
-- **The setup-workstream flow end to end, in a local repository with no
-  remote** — for a project with an existing `AGENTS.md` and `TODO.md`, and for
-  one with body content in `CLAUDE.md`: bootstrap commit, carrying everything
-  over, archiving the setup workstream, merging into the target branch, and
-  deleting the work branch
-- No writes before approval, existing rules kept, clashes raised as questions
-- Cleanup stops and keeps `.cairn/` when the pre-delete check fails
-- After applying, a fresh session finds and reads `.agents/plans/workflow.md`
-  on its own and reports what's in progress — in both Claude Code and Codex
-
-Partly confirmed:
-
-- Choosing not to commit `.agents/` — checked as far as the bootstrap commit,
-  the work branch, and the pointer line being left in place. A fresh session
-  actually picking the work back up from that pointer, and carrying over,
-  finishing, or archiving in that state, were not run
-- A root `workflow.md` in a format other than cairn's — checked only as far as
-  preserving the existing format and adding the pointer line
-
-Not verified yet:
-
-- **Applying, merging, and cleanup in Codex.** Only document discovery was
-  confirmed there
-- Landing the work when a remote exists — remote work branch, PR, remote merge
-- Projects with several workstreams at once
-- Operating systems other than Windows
-
-If something doesn't hold up in practice, please open an issue.
