@@ -9,7 +9,7 @@ Codex and Claude Code read the same file.
 
 [![test](https://github.com/Jammanb0/cairn/actions/workflows/test.yml/badge.svg)](https://github.com/Jammanb0/cairn/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![node](https://img.shields.io/badge/node-%E2%89%A518-brightgreen.svg)](package.json)
+[![node](https://img.shields.io/badge/node-%E2%89%A522-brightgreen.svg)](package.json)
 
 [한국어](README.md) · [Trial records](docs/trials/README.md) · [Adoption guide](APPLY.md)
 
@@ -43,7 +43,7 @@ AI:  The 002-length-limit workstream is in progress.
 The [trial records](docs/trials/README.md) document how this was actually
 tested — including what has **not** been verified.
 
-## Five minutes
+## Get started in five minutes
 
 **New project**
 
@@ -138,7 +138,8 @@ No global CLI, no generation step, no background process. Markdown only.
 
 <br>
 
-You can, and if that works for you, keep doing it. cairn adds three things.
+Honestly, yes — for many projects that's enough, and plenty of people work
+exactly that way. cairn adds three things on top.
 
 1. A **procedure for carrying over** the rules and notes you already have
 2. A **command that checks** the documents actually link up (`cairn check`, exits 1 so CI can use it)
@@ -183,10 +184,11 @@ documents stop linking up.
 
 <br>
 
-Windows, Claude Code, and local projects with no remote. Codex was only checked
-for document discovery, and the remote-branch/PR path hasn't been exercised yet.
-The full list is under "아직 확인하지 않은 것" in the
-[trial records](docs/trials/README.md).
+The commands (`init`, `check`) run in CI on Windows, Ubuntu and macOS against
+Node 22 and 24. Tests of whether an agent actually follows the docs have only run
+on Windows so far; for Codex that covers document discovery and the work-location
+questions. The remote-branch/PR path hasn't been exercised yet. The full list is
+under "Not yet verified" in the [trial records](docs/trials/README.md).
 
 </details>
 

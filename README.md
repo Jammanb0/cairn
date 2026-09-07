@@ -9,7 +9,7 @@ Codex와 Claude Code가 같은 것을 읽습니다.
 
 [![test](https://github.com/Jammanb0/cairn/actions/workflows/test.yml/badge.svg)](https://github.com/Jammanb0/cairn/actions/workflows/test.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![node](https://img.shields.io/badge/node-%E2%89%A518-brightgreen.svg)](package.json)
+[![node](https://img.shields.io/badge/node-%E2%89%A522-brightgreen.svg)](package.json)
 
 [English](README.en.md) · [시험 기록](docs/trials/README.md) · [적용 절차](APPLY.md)
 
@@ -43,7 +43,7 @@ AI: 002-length-limit 워크스트림이 진행 중입니다.
 실제로 이렇게 동작하는지 시험한 기록은 [여기](docs/trials/README.md)에 있습니다.
 무엇을 확인하지 **않았는지**도 같은 문서에 적어 두었습니다.
 
-## 5분
+## 5분 만에 시작하기
 
 **새 프로젝트**
 
@@ -137,7 +137,8 @@ npx --yes github:Jammanb0/cairn check .
 
 <br>
 
-맞습니다. 그게 잘 되면 그대로 쓰세요. cairn이 더 주는 것은 셋입니다.
+맞습니다. 많은 경우 그걸로 충분하고, 실제로 그렇게 쓰는 분이 많습니다.
+cairn은 거기에 세 가지를 더합니다.
 
 1. 기존에 쓰던 규칙과 메모를 **버리지 않고 옮기는 절차**가 있습니다
 2. 문서끼리 실제로 연결됐는지 **검사하는 명령**이 있습니다 (`cairn check`, CI에 넣을 수 있음)
@@ -181,8 +182,9 @@ npx --yes github:Jammanb0/cairn check .
 
 <br>
 
-Windows, Claude Code, 원격 저장소가 없는 로컬 프로젝트까지입니다.
-Codex는 문서 탐색만, 원격 브랜치·PR 경로는 아직입니다.
+명령(`init`·`check`)은 Windows·Ubuntu·macOS에서 Node 22와 24로 CI가 매번 돌립니다.
+에이전트가 문서를 실제로 따르는지 본 시험은 아직 Windows에서만 했고, Codex는 문서
+탐색과 작업 위치 질문까지 확인했습니다. 원격 브랜치·PR 경로는 아직입니다.
 전체 목록은 [시험 기록](docs/trials/README.md)의 「아직 확인하지 않은 것」에 있습니다.
 
 </details>
