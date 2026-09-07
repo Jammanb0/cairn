@@ -63,8 +63,8 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 
 ## 기술 기반
 
-- Node.js 18 이상, JavaScript(ESM). 런타임 의존성 없음.
-- 시험은 Node 기본 러너(`node --test`), CI는 GitHub Actions에서 Node 18과 22.
+- Node.js 22 이상, JavaScript(ESM). 런타임 의존성 없음.
+- 시험은 Node 기본 러너(`node --test`), CI는 GitHub Actions에서 Node 22와 24.
 - 배포는 GitHub 저장소에서 바로(`npx github:Jammanb0/cairn`). npm 레지스트리에는
   올리지 않았습니다.
 
