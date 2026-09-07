@@ -243,6 +243,15 @@ T1에 대해 맥락 없는 새 세션에서 "지금 뭐 하던 중이었지?"만
 통과했습니다. 따라서 첫 실패는 저장소 시험 실패가 아니라 사용자 환경 문제로
 판정합니다.
 
+### 원격 CI · Remote CI
+
+위 네 커밋을 `main`에 push한 뒤 GitHub Actions
+[실행 34151697146](https://github.com/Jammanb0/cairn/actions/runs/34151697146)을
+확인했습니다. Ubuntu, macOS, Windows에서 각각 Node.js 18과 22를 사용한 여섯
+작업이 모두 성공했습니다. 각 작업에서 `npm test`와
+`node bin/cairn.mjs check template`을 실행했습니다. 따라서 Windows 외
+운영체제는 이 CI 자동 시험 범위에서 확인됐습니다.
+
 ### PowerShell의 `cd` 인용 · Quoting `cd` in PowerShell
 
 `cairn init`이 출력하는 POSIX 방식의 인용을 PowerShell에서 각각 실행했습니다.
@@ -307,8 +316,6 @@ T1에 대해 맥락 없는 새 세션에서 "지금 뭐 하던 중이었지?"만
 
 ### 이번에도 확인하지 못한 것 · Still not verified in this run
 
-- CI 매트릭스는 Ubuntu, macOS, Windows와 Node.js 18, 22 조합으로 넓혔지만 아직
-  원격에서 실행하지 않았습니다
 - Codex CLI는 실행할 수 있음을 확인했지만, 임시 기존 프로젝트에 적용하고
   완료·병합·정리하는 전체 흐름은 실행하지 않았습니다. 골격을 저장소 밖의 절대
   경로로 알려 준 읽기 전용 시도에서는 Codex가 골격 저장소를 대상 프로젝트로
@@ -334,7 +341,8 @@ T1에 대해 맥락 없는 새 세션에서 "지금 뭐 하던 중이었지?"만
 - [ ] `.agents/`를 커밋하지 않는 프로젝트의 새 세션 이어받기와 완료
 - [ ] cairn이 아닌 `workflow.md` 형식의 실제 이관과 완료
 - [ ] 여러 워크스트림이 동시에 진행되는 프로젝트
-- [ ] Windows 외 운영체제
+- [x] Windows 외 운영체제 — 6번 GitHub Actions에서 Ubuntu와 macOS의 Node.js
+  18·22 조합 통과
 - [ ] Codex 데스크톱에서 새 프로젝트 열기와 기존 프로젝트 적용 시작
 - [ ] Claude Code 데스크톱에서 새 프로젝트 열기와 기존 프로젝트 적용 시작
 - [x] PowerShell에서 작은따옴표가 든 폴더 이름의 `cd` 안내 — 6번 시험에서 실패
