@@ -7,9 +7,13 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
+      # 경로 구분자와 줄바꿈 처리가 운영체제마다 달라서 셋 다 돌린다.
+      # init 이 만든 프로젝트가 곧바로 check 를 통과하는지까지 시험에 들어 있다.
+      fail-fast: false
       matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
         node: ["18", "22"]
     steps:
       - uses: actions/checkout@v7
