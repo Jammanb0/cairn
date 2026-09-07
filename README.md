@@ -1,216 +1,214 @@
+<div align="center">
+
 # cairn
 
-[English](README.en.md)
+**AI 에이전트가 어제 뭘 하다 말았는지 기억하게 만듭니다.**
 
-이미 진행 중인 프로젝트에 안전하게 얹는 AI 작업 골격입니다. 기존 규칙과 진행
-기록을 덮어쓰지 않고 조사해 옮겨 담습니다. Codex와 Claude Code는 생성이나 동기화
-없이 같은 원본을 읽습니다. 여러 세션에 걸친 작업은 워크스트림으로 이어지고,
-`.agents/`를 커밋하는 프로젝트에서는 Git 이력에도 남습니다.
+규칙은 `AGENTS.md` 한 곳에. 진행 상태는 문서 한 곳에.
+Codex와 Claude Code가 같은 것을 읽습니다.
 
-케른(cairn)은 산길에 쌓아 두는 돌탑입니다. 길을 만들어 주지는 않지만, 다음
-사람이 — 혹은 다시 온 내가 — 어디까지 왔는지 알 수 있게 합니다.
+[![test](https://github.com/Jammanb0/cairn/actions/workflows/test.yml/badge.svg)](https://github.com/Jammanb0/cairn/actions/workflows/test.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![node](https://img.shields.io/badge/node-%E2%89%A518-brightgreen.svg)](package.json)
 
-## 무엇을 해결하나
+[English](README.en.md) · [시험 기록](docs/trials/README.md) · [적용 절차](APPLY.md)
 
-에이전트와 며칠씩 일하다 보면 두 가지가 반복됩니다.
+</div>
 
-- 규칙이 흩어집니다. Codex는 `AGENTS.md`를, Claude Code는 `CLAUDE.md`를 읽으니
-  같은 규칙을 두 벌 쓰게 되고, 한쪽만 고치면 내용이 갈라집니다.
-- 맥락이 사라집니다. 새 세션을 열 때마다 "지금 뭐 하던 중이었지"부터 다시
-  설명해야 합니다.
+---
 
-이 골격은 규칙의 원본을 `AGENTS.md` 한 곳에 두고 `CLAUDE.md`는 그것을 가리키게
-하며, 진행 상태를 `.agents/plans/workflow.md` 한 곳에서 관리합니다.
-
-## 다른 것과 무엇이 다른가
-
-규칙 파일을 한 원본으로 모으는 도구는 이미 여럿 있습니다
-([ai-rules-sync](https://github.com/PanisHandsome/ai-rules-sync),
-[rulesync](https://github.com/dyoshikawa/rulesync) 등). 세션 사이 맥락을 문서로
-남기는 방식도 있고([Cline Memory Bank](https://docs.cline.bot/best-practices/memory-bank)),
-스펙 주도 개발 체계도 있습니다([Spec Kit](https://github.com/github/spec-kit),
-[Agent OS](https://buildermethods.com/agent-os),
-[BMAD](https://github.com/bmad-code-org/BMAD-METHOD)).
-
-cairn이 특히 다루는 지점은 두 곳입니다.
-
-- **규칙만이 아니라 진행 기록까지 옮깁니다.** 흩어진 `TODO.md`나 핸드오프 문서를
-  함께 조사해 제자리에 넣고, 어긋나는 규칙은 사람에게 묻고, 진입점이 실제로
-  이어지는지 확인합니다. 적용 과정 자체를 하나의 작업으로 관리하므로 중간에
-  끊겨도 어디까지 왔는지 남습니다.
-- **작업 위치를 맥락으로 남깁니다.** 기준 브랜치, 반영 대상, 원격 브랜치와 PR
-  흔적 여부를 시작할 때 정해 계획 문서에 적습니다. 확인한 다른 도구의 공식
-  문서에서는 같은 방식을 찾지 못했습니다.
-
-없는 것도 분명합니다. 절차를 강제하는 커맨드나 훅이 없어서, 문서에 적힌 순서를
-지키는 것은 에이전트와 사람에게 달려 있습니다. 규칙을 Cursor나 Copilot 형식으로
-변환해 주지도 않습니다.
-
-## 무엇이 들어 있나
+## 이런 적 있나요
 
 ```text
-AGENTS.md              항상 적용되는 규칙과 문서 안내표
-CLAUDE.md              "@AGENTS.md" 한 줄
-.agents/
-  rules/
-    verification.md    다 됐다고 말하기 전에 확인하는 방법
-    communication.md   답변을 쓸 때의 태도
-  plans/
-    README.md          계획 문서의 구조 설명
-    goal.md            목적·범위·하지 않을 것
-    workflow.md        지금 무슨 작업 중이고 다음이 무엇인지
-    history.md         끝낸 작업의 짧은 색인
-    ideas.md           아직 착수를 약속하지 않은 후보
-    workstreams/<번호>-<이름>/  여러 날에 걸치는 작업 하나당 폴더 하나
+나: 어제 하던 거 이어서 하자
+AI: 어떤 작업을 말씀하시는지 알려주시겠어요?
+나: ...
 ```
 
-골격은 마크다운 문서뿐입니다. 명령은 둘뿐이고 둘 다 없어도 됩니다 — 새 폴더에
-골격을 넣는 `cairn init`, 그리고 문서가 서로 이어져 있는지 검사하는
-`cairn check`입니다. 복사만 해도 같은 결과이고, 검사도 눈으로 하면 됩니다.
+```text
+나: 커밋 전에 물어보라고 했잖아
+AI: CLAUDE.md에는 그런 규칙이 없는데요
+나: AGENTS.md에 적었는데?
+```
 
-## 시작하기
+**cairn을 적용하면**
 
-### 이미 작업 중인 프로젝트
+```text
+나: 지금 뭐 하던 중이었지?
+AI: 002-length-limit 워크스트림이 진행 중입니다.
+    어제 검사기까지 끝냈고 다음은 템플릿 반영이에요.
+    작업 브랜치는 workstream/002-length-limit, main에 반영 예정입니다.
+```
 
-프로젝트 안에 파일을 얹지 않고, 옆에 폴더 하나로 받습니다. 기존 파일은 하나도
-건드리지 않습니다.
+실제로 이렇게 동작하는지 시험한 기록은 [여기](docs/trials/README.md)에 있습니다.
+무엇을 확인하지 **않았는지**도 같은 문서에 적어 두었습니다.
+
+## 5분
+
+**새 프로젝트**
+
+```bash
+npx --yes github:Jammanb0/cairn init my-project
+```
+
+**이미 하던 프로젝트** — 기존 파일은 하나도 건드리지 않습니다
 
 ```bash
 git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
 ```
 
-Claude Code나 Codex에 이렇게 요청합니다.
+에이전트에게 그대로 붙여 넣으세요.
 
 ```text
 .cairn/APPLY.md를 읽고 이 프로젝트에 적용해줘.
 기존 규칙과 기록은 보존하고, 지시 파일 변경안은 적용 전에 보여줘.
 ```
 
-에이전트가 기존 규칙과 기록을 조사하고 변경안을 먼저 보여줍니다. 승인하면
-프로젝트 안에 「cairn 구조 적용」 워크스트림을 만들어 이관을 진행하고, 끝나면
-그 워크스트림을 아카이브한 뒤 `.cairn/`을 정리합니다.
-
-적용 중에 커밋할 일이 생기므로 에이전트가 `.cairn/`을 `.gitignore`에 임시로
-넣고, 마칠 때 이번에 추가한 줄만 지웁니다.
-
-**파일을 복사하는 것만으로는 적용이 끝나지 않습니다.** 기존 `AGENTS.md`를 그대로
-두고 `.agents/`만 추가하면, 그 폴더를 읽으라는 안내가 없어서 아무도 읽지
-않습니다. 그래서 `APPLY.md`는 복사가 아니라 **옮겨 담고 연결하기**를 절차로
-삼습니다. 기존 규칙은 살리고, 어긋나는 항목은 사람이 정하도록 짚어서 물어봅니다.
-
-적용을 하나의 대작업으로 다루므로, 중간에 끊겨도 어디까지 왔는지 그 워크스트림
-문서에 남습니다. 끝난 뒤에는 `cairn check`로 문서가 실제로 이어졌는지
-확인합니다.
-
-### 한 번 적용한 뒤
-
-cairn은 프로젝트마다 한 번 적용합니다. 적용이 끝나면 `AGENTS.md`, `CLAUDE.md`,
-`.agents/`는 그 프로젝트의 문서가 되며, 이후에는 일반 작업 흐름에 따라 직접
-갱신합니다. `.cairn/`을 다시 받거나 `APPLY.md`를 처음부터 반복하지 않습니다.
-
-cairn의 새 버전이 나와도 이미 적용한 문서는 자동으로 바뀌지 않습니다. 프로젝트에
-맞게 달라진 문서를 새 골격으로 덮어쓰면 기존 규칙이나 기록을 잃을 수 있기
-때문입니다. 새 버전의 변경이 필요하면 차이를 검토해 필요한 부분만 가져옵니다.
-현재 별도의 업그레이드 명령은 없습니다.
-
-적용 상태는 언제든 검사할 수 있습니다.
+**확인**
 
 ```bash
 npx --yes github:Jammanb0/cairn check .
 ```
 
-같은 검사기 버전으로 재현해야 하면 태그를 고정합니다.
+## 규칙은 한 곳에만 둡니다
 
-```bash
-npx --yes github:Jammanb0/cairn#v0.1.2 check .
-```
+도구마다 읽는 파일이 다릅니다. Codex는 `AGENTS.md`를, Claude Code는
+`CLAUDE.md`를 읽습니다. 그래서 보통 같은 규칙을 두 벌 쓰게 되고, 한쪽만 고치면
+갈라집니다.
 
-### 아무것도 없는 새 프로젝트
-
-Node 18 이상과 Git이 필요합니다. 따로 설치할 것은 없습니다.
-
-```bash
-npx --yes github:Jammanb0/cairn init my-project
-cd my-project
-```
-
-공통 규칙과 계획 문서가 담긴 골격 전체가 바로 만들어집니다. 옮길 기존 규칙이
-없으니 세팅 워크스트림은 만들지 않습니다.
-
-만든 폴더를 별도의 Git 저장소로 시작할 거라면, 상위 저장소에 포함된 폴더가
-아닌지 확인한 뒤 `git init`을 실행합니다.
-
-프로젝트 이름은 채워져 있고, 기술 스택이나 검증 명령 같은 프로젝트별 빈칸은
-이어서 채웁니다. 어디가 남았는지는 이렇게 찾습니다.
-
-```bash
-grep -rnE "채우기|고르기" AGENTS.md .agents/
-```
-
-에이전트에게 맡겨도 됩니다.
+`CLAUDE.md`를 한 줄짜리 이정표로 만들면 두 도구가 같은 파일을 읽습니다.
 
 ```text
-AGENTS.md와 .agents/의 채우기 자리를 이 프로젝트에 맞게 채워줘.
-확인되지 않는 것은 지어내지 말고 확인 필요로 남겨줘.
+  Codex  ─────────────────────────────┐
+                                      ├──►  AGENTS.md  ──►  .agents/
+  Claude Code  ──►  CLAUDE.md  ───────┘     규칙 원본        상세 규칙과
+                    "@AGENTS.md"                             진행 기록
+                    이 한 줄이 전부
 ```
 
-채운 뒤에는 검사로 확인합니다.
+원본이 하나뿐이라 생성도 동기화도 필요 없고, 갈라질 수가 없습니다.
 
-```bash
-npx --yes github:Jammanb0/cairn check
+## 며칠짜리 작업은 폴더 하나로
+
+하루에 안 끝나는 일은 폴더를 하나 만들어 거기서 관리합니다. 새 세션은 그 폴더만
+보면 어디까지 왔는지 압니다.
+
+```text
+  시작하면    .agents/plans/workstreams/002-length-limit/
+                 README.md     무엇을 왜 하는가
+                 workflow.md   어디까지 했고 다음은 무엇인가
+
+  끝나면      .agents/archive/workstreams/002-length-limit/
+                 지우지 않고 그대로 옮깁니다
+                 history.md 에 한 줄만 남습니다
 ```
 
-안내표가 없는 파일을 가리키는지, `CLAUDE.md`가 `AGENTS.md`로 이어지는지,
-채우지 않은 자리와 워크스트림 상태가 어떤지 알려줍니다. 문제가 있으면 종료
-코드 1로 끝나므로 CI에도 넣을 수 있습니다.
+어느 브랜치에서 작업할지, 어디에 반영할지도 시작할 때 정해서 `workflow.md`에
+적어 둡니다. 다음 세션이 다시 묻지 않습니다.
 
-### Codex·Claude Code 데스크톱에서 사용
+## 왜 또 다른 도구인가
 
-위의 `npx`와 `git clone`은 cairn 파일을 프로젝트에 받아 놓는 명령입니다. 앱
-안의 터미널이나 일반 터미널에서 실행한 뒤, 만들어진 프로젝트 폴더를 Codex 또는
-Claude Code 데스크톱에서 엽니다.
+<table>
+<tr><td width="33%" valign="top">
 
-- 새 프로젝트에서는 Codex가 `AGENTS.md`를 읽고, Claude Code는 `CLAUDE.md`의
-  `@AGENTS.md`를 통해 같은 규칙을 읽습니다. 프로젝트별 빈칸을 채워 달라고
-  요청하면 됩니다.
-- 기존 프로젝트에서는 폴더를 연 뒤 위의 `.cairn/APPLY.md` 적용 문장을 그대로
-  요청합니다.
-- 로컬 프로젝트 파일에 접근할 수 없는 일반 채팅에서는 자동으로 적용할 수
-  없습니다.
+**옮겨 담습니다**
 
-### AI 없이 직접 적용
+흩어진 `TODO.md`와 기존 규칙을 조사해 제자리에 넣습니다. 덮어쓰지 않고, 어긋나면 사람에게 묻습니다.
 
-`.cairn/APPLY.md`와 `.cairn/setup-workstream/workflow.md`를 체크리스트로 읽고
-같은 순서대로 직접 하면 됩니다. 할 일은 에이전트에게 시킬 때와 같습니다.
+</td><td width="33%" valign="top">
 
-## 대작업과 브랜치
+**작업 위치를 기억합니다**
 
-대작업을 시작할 때 정해진 기본 작업 위치는 없습니다. 먼저 원하는 브랜치에서
-직접 작업할지, 별도의 로컬 작업 브랜치를 만들어 진행할지 묻습니다.
+기준 브랜치, 반영 대상, PR 흔적 여부를 정해서 적어 둡니다. 다음 세션이 다시 묻지 않습니다.
 
-로컬 작업 브랜치를 고른 경우에는 어느 브랜치에서 갈라질지와 최종 반영 대상,
-원격 작업 브랜치와 PR 기록을 남길지도 이어서 묻습니다. 정한 작업 위치, 기준
-브랜치, 반영 대상 브랜치, 원격 작업 흔적 여부는 계획 문서에 남겨 다음 세션도
-같은 방향으로 이어갑니다.
+</td><td width="33%" valign="top">
 
-## 무엇을 바꿔 써도 되나
+**아무것도 안 남깁니다**
 
-`AGENTS.md`의 다음 부분은 기본값입니다. 팀 사정에 맞게 바꿔도 됩니다.
+전역 CLI도, 생성 단계도, 상주 프로세스도 없습니다. 마크다운뿐입니다.
 
-- 답변 언어
-- 작업 전 승인 범위
-- 커밋과 푸시 승인 방식, 커밋 메시지 언어와 형식
+</td></tr>
+</table>
 
-`verification.md`의 테스트·빌드 명령처럼 프로젝트마다 다른 자리는
-`<!-- 채우기: -->`로 비워 두었습니다. 나머지 원칙은 그대로 써도 됩니다.
+## 자주 나오는 질문
 
-문서는 한국어로 되어 있습니다. 다른 언어로 쓸 거라면 번역해서 쓰면 됩니다.
+<details>
+<summary><b>그냥 메모 파일 몇 개 두면 되는 거 아닌가요?</b></summary>
 
-## 범위
+<br>
 
-AI 없이도 쓸 수 있습니다. 마크다운 문서라서 사람이 읽고 직접 관리해도 됩니다.
-다만 애초에 AI와 일할 때 규칙과 맥락이 흩어지는 문제를 풀려고 만든 것이고,
-그 상황에서 가장 값을 합니다.
+맞습니다. 그게 잘 되면 그대로 쓰세요. cairn이 더 주는 것은 셋입니다.
 
-특정 도구에 묶여 있지 않습니다. `AGENTS.md`와 `CLAUDE.md`를 읽는 도구라면
-무엇이든 됩니다.
+1. 기존에 쓰던 규칙과 메모를 **버리지 않고 옮기는 절차**가 있습니다
+2. 문서끼리 실제로 연결됐는지 **검사하는 명령**이 있습니다 (`cairn check`, CI에 넣을 수 있음)
+3. 며칠짜리 작업을 **어느 브랜치에서 하기로 했는지까지** 남깁니다
+
+</details>
+
+<details>
+<summary><b>Cursor나 Copilot도 되나요?</b></summary>
+
+<br>
+
+`AGENTS.md`를 읽는 도구라면 됩니다. 다만 각 도구 형식으로 **변환해 주지는 않습니다.**
+그건 [rulesync](https://github.com/dyoshikawa/rulesync)나
+[ai-rules-sync](https://github.com/PanisHandsome/ai-rules-sync)가 더 잘합니다.
+
+</details>
+
+<details>
+<summary><b>Spec Kit이나 OpenSpec과 뭐가 다른가요?</b></summary>
+
+<br>
+
+그쪽은 **무엇을 만들지**(요구사항)를 다루고, cairn은 **어떻게 일하고 어디까지 왔는지**를
+다룹니다. 층이 다르니 같이 써도 충돌하지 않습니다.
+
+</details>
+
+<details>
+<summary><b>규칙을 강제해 주나요?</b></summary>
+
+<br>
+
+아니요. 훅도 상주 프로세스도 두지 않는 것이 이 도구의 성립 조건입니다.
+대신 **확인할 수 있게** 만들었습니다 — `cairn check`가 연결이 끊긴 것을 종료 코드 1로 알립니다.
+
+</details>
+
+<details>
+<summary><b>어디까지 검증됐나요?</b></summary>
+
+<br>
+
+Windows, Claude Code, 원격 저장소가 없는 로컬 프로젝트까지입니다.
+Codex는 문서 탐색만, 원격 브랜치·PR 경로는 아직입니다.
+전체 목록은 [시험 기록](docs/trials/README.md)의 「아직 확인하지 않은 것」에 있습니다.
+
+</details>
+
+## 들어 있는 것
+
+```text
+AGENTS.md        항상 적용되는 규칙과 문서 안내표
+CLAUDE.md        "@AGENTS.md" 한 줄
+.agents/
+  rules/         검증 · 소통 방식
+  plans/         목표 · 현재 상태 · 이력 · 아이디어
+    workstreams/<번호>-<이름>/    여러 날짜리 작업 하나당 폴더 하나
+```
+
+명령은 `init`과 `check` 둘뿐이고, **둘 다 없어도 됩니다.** 복사만 해도 같은
+결과이고 검사는 눈으로 해도 됩니다.
+
+---
+
+<div align="center">
+
+케른(cairn)은 산길에 쌓아 두는 돌탑입니다.<br>
+길을 만들어 주지는 않지만, 다음 사람이 — 혹은 다시 온 내가 — 어디까지 왔는지 알 수 있게 합니다.<br>
+지나온 돌탑도 치우지 않습니다. 그 자리에 그대로 두어야 어디서부터 걸어왔는지가 남습니다.
+
+**MIT**
+
+</div>
