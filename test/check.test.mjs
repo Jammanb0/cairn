@@ -382,3 +382,47 @@ test("아카이브에 끊긴 경로가 있으면 통과 문구가 그 사실을 
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+// 대작업 여러 개가 동시에 도는 프로젝트. 검사기 수준에서 대조가 되는지 본다.
+function makeWorkstream(dir, name) {
+  const path = join(dir, ".agents/plans/workstreams", name);
+  mkdirSync(path, { recursive: true });
+  writeFileSync(join(path, "README.md"), "# 대작업\n");
+  writeFileSync(join(path, "workflow.md"), "# 진행\n");
+}
+
+test("대작업이 동시에 여러 개여도 모두 적혀 있으면 통과한다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "002-cli-command");
+    makeWorkstream(d, "003-english-template");
+    writeFileSync(
+      join(d, ".agents/plans/workflow.md"),
+      "# 전체 작업 흐름\n\n## 현재 대작업\n\n- **002-cli-command**\n  - 문서: .agents/plans/workstreams/002-cli-command/\n- **003-english-template**\n  - 문서: .agents/plans/workstreams/003-english-template/\n"
+    );
+  });
+  try {
+    const result = check(dir);
+    assert.equal(result.problems.length, 0, messages(result));
+    assert.ok(
+      result.passed.some((p) => p.includes("진행 중인 대작업 2개")),
+      result.passed.join(", ")
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("동시에 여러 개일 때 하나만 빠져 있으면 그 하나만 잡는다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "002-cli-command");
+    makeWorkstream(d, "003-english-template");
+    listCurrent(d, "002-cli-command");
+  });
+  try {
+    const result = check(dir);
+    assert.equal(result.problems.length, 1, messages(result));
+    assert.match(result.problems[0].message, /003-english-template 이 없어/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
