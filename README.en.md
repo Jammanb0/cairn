@@ -89,10 +89,10 @@ Make `CLAUDE.md` a one-line signpost and both tools read the same file.
 
 One source, so there is no generation step and nothing to drift out of sync.
 
-## Multi-day work gets its own folder
+## Work worth tracking gets its own folder
 
-Anything that won't finish today gets a folder. A fresh session only has to read
-that folder to know where things stand.
+Anything that won't finish in one go, or that's worth tracking on its own, gets a
+folder. A fresh session only has to read that folder to know where things stand.
 
 ```text
   Starting     .agents/plans/workstreams/002-length-limit/
@@ -146,7 +146,7 @@ exactly that way. cairn adds three things on top.
 
 1. A **procedure for carrying over** the rules and notes you already have
 2. A **command that checks** the documents actually link up (`cairn check`, exits 1 so CI can use it)
-3. It records **which branch a multi-day task lives on**
+3. It records **which branch a larger piece of work lives on**
 
 </details>
 
@@ -198,8 +198,13 @@ per-workstream workflow.md →  status.md / plan.md / decisions.md
 ```
 
 Nothing is left behind to bridge the old paths. `cairn check` tells you what
-moved where when it finds the old layout. Leave anything already archived as it
-is — it records the structure of its own time, and the checker skips archives.
+moved where when it finds the old layout.
+
+Leave anything already archived as it is — it records the structure of its own
+time, and the checker does not report old documents inside an archive as the old
+layout. It does not skip archives entirely, though: a path an archived document
+points at that no longer exists is reported for review, and a duplicate
+workstream number is still a problem.
 
 </details>
 
@@ -230,7 +235,7 @@ CLAUDE.md        the single line "@AGENTS.md"
     workstreams.md  how multi-day work is run
     history.md      one line per finished task
     ideas.md        candidates not committed to yet
-    workstreams/<number>-<name>/    one folder per multi-day task
+    workstreams/<number>-<name>/    one folder per tracked piece of work
 ```
 
 There are two commands, `init` and `check`, and **you need neither.** Copying the
