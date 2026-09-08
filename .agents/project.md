@@ -1,11 +1,14 @@
-# 목표
+# 프로젝트
+
+> 이 프로젝트가 전체로서 무엇인지 설명합니다. 진행 중인 작업과 다음 행동은
+> `plans/current.md`가, 개별 대작업의 내용은 그 폴더의 `README.md`가 다룹니다.
 
 ## 한 줄 요약
 
 AI 코딩 에이전트와 여러 날에 걸쳐 일할 때 규칙과 진행 맥락이 흩어지지 않게 하는
 마크다운 문서 골격과, 그 문서들이 실제로 이어져 있는지 확인하는 작은 CLI입니다.
 
-## 사용 목적
+## 누가 왜 쓰는가
 
 Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 사람이 씁니다.
 그런 상황에서 두 가지가 반복됩니다.
@@ -29,14 +32,16 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
   → 마치면 history.md 에 한 줄, 폴더는 .agents/archive/ 로
 ```
 
-## 결과물
+## 책임지는 범위
 
 - `template/` — 복사해서 쓰는 문서 골격. 이 저장소의 진짜 산출물입니다.
-- `bin/cairn.mjs` — `cairn init`(새 폴더에 골격 넣기)과 `cairn check`(연결 검사)
-- `APPLY.md`와 `setup-workstream/` — 기존 프로젝트에 얹는 절차
+- `setup-workstream/` — 기존 프로젝트에 얹을 때 쓰는 세팅 워크스트림 골격.
+- `APPLY.md` — 기존 프로젝트에 적용하기 시작하는 절차.
+- `bin/cairn.mjs`와 `lib/check.mjs` — `cairn init`(새 폴더에 골격 넣기)과
+  `cairn check`(연결 검사).
 - npm 배포물. `package.json`의 `files`가 무엇이 나가는지 정합니다.
 
-## 범위와 그 배경
+## 책임지지 않는 범위와 그 이유
 
 **적용된 프로젝트에 cairn 전용 런타임이나 상주 프로세스를 남기지 않습니다.**
 `cairn init`과 `cairn check`는 필요할 때 부르는 명령이고, 프로젝트에 남는 것은
@@ -61,16 +66,30 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 자리입니다. 연결이 끊긴 것은 종료 코드 1로 알리고, 사람이 판단할 것은 구분해서
 보여줍니다.
 
+## 설계 원칙
+
+- **원본은 한 곳에.** 같은 규칙을 두 파일에 독립된 원본으로 두지 않습니다.
+  `CLAUDE.md`가 `@AGENTS.md` 한 줄인 것도 같은 이유입니다.
+- **문서마다 역할이 하나.** 프로젝트 설명, 대작업 소개, 현재 상태, 작업 계획,
+  운영 절차를 한 파일에 섞지 않습니다. 어떤 파일이 무엇을 담는지는
+  `plans/README.md`에 있습니다.
+- **자기 자신에게 적용한다.** 이 저장소의 `AGENTS.md`와 `.agents/`는 배포물이
+  아니라 실제 운영 문서입니다. 골격을 고치면 여기서 먼저 씁니다.
+
 ## 기술 기반
 
 - Node.js 22 이상, JavaScript(ESM). 런타임 의존성 없음.
-- 시험은 Node 기본 러너(`node --test`), CI는 GitHub Actions에서 Node 22와 24.
+- 시험은 Node 기본 러너(`node --test`), CI는 GitHub Actions에서 Node 22와 24를
+  Ubuntu·macOS·Windows에서 돌립니다.
 - 배포는 GitHub 저장소에서 바로(`npx github:Jammanb0/cairn`). npm 레지스트리에는
   올리지 않았습니다.
 
-품질과 보안 규칙은 저장소 `AGENTS.md`, 완료 전 검증 기준은
-`.agents/rules/verification.md`가 원본입니다. 이 문서에서는 같은 규칙을
-반복하지 않습니다.
+## 더 읽을 곳
 
-아직 착수하지 않은 개선 후보는 `ideas.md`, 진행 중인 대작업과 다음 행동은
-`workflow.md`에서 관리합니다.
+- 사용자용 소개와 설치 안내: 저장소 루트의 `README.md`, `README.en.md`
+- 무엇이 어디까지 검증됐는지: `docs/trials/README.md`
+- 품질·보안 규칙과 승인 범위: 저장소 `AGENTS.md`
+- 완료 전 검증 기준: `.agents/rules/verification.md`
+
+이 문서에서는 위 규칙을 반복하지 않습니다. 아직 착수하지 않은 개선 후보는
+`plans/ideas.md`에 있습니다.

@@ -35,10 +35,12 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 | --- | --- |
 | 다 됐다고 보고하기 전 | `.agents/rules/verification.md` |
 | 답변을 쓸 때 | `.agents/rules/communication.md` |
-| 지난 작업을 이어받거나 대작업을 시작·완료할 때 | `.agents/plans/workflow.md` |
+| 프로젝트 전체가 무엇인지 볼 때 | `.agents/project.md` |
+| 지난 작업을 이어받을 때 | `.agents/plans/current.md` |
+| 대작업을 시작·진행·완료할 때 | `.agents/plans/workstreams.md` |
 | 계획 문서의 구조를 확인할 때 | `.agents/plans/README.md` |
-| 무엇이 왜 정해졌는지 확인할 때 | 해당 대작업의 `workflow.md`와, 별도 근거가 있을 때 `decisions.md` |
-| 목표와 전체 범위를 볼 때 | `.agents/plans/goal.md` |
+| 어느 대작업의 현재 상태를 볼 때 | 그 대작업의 `status.md` |
+| 무엇이 왜 정해졌는지 확인할 때 | 그 대작업의 `decisions.md` |
 | 향후 아이디어를 볼 때 | `.agents/plans/ideas.md` |
 | 마친 대작업을 찾을 때 | `.agents/plans/history.md` |
 | 무엇이 검증됐는지 확인할 때 | `docs/trials/README.md` |
@@ -49,9 +51,13 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 다시 적용할 상세 규칙을 둡니다. 이 경로 자체는 Codex나 Claude Code가 자동으로
 읽는 특별한 경로가 아니므로, 위의 시작 규칙과 안내표를 통해 읽도록 연결합니다.
 
-`.agents/plans/`에는 목표, 현재 상태, 이력과 아이디어를 둡니다. 현재 상태는 진행
-중인 대작업의 `workflow.md`에서 관리합니다. 대작업을 마치면 완료든 취소든
-`history.md`에 짧게 기록하고 해당 폴더를 `.agents/archive/workstreams/`로 옮깁니다.
+`.agents/project.md`는 프로젝트 전체가 무엇인지 설명합니다.
+
+`.agents/plans/`에는 진행 중인 작업, 이력과 아이디어를 둡니다. 무엇이 진행
+중인지는 `current.md`가 가리키고, 그 대작업의 상세 상태는 폴더 안의
+`status.md`가 가집니다. 대작업을 마치면 완료든 취소든 `history.md`에 짧게
+기록하고 해당 폴더를 `.agents/archive/workstreams/`로 옮깁니다. 각 문서가
+무엇을 담는지는 `.agents/plans/README.md`에 있습니다.
 
 `.agents/`는 `AGENTS.md`, `CLAUDE.md`와 함께 커밋합니다.
 
@@ -78,7 +84,8 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 - 검증하지 않은 것을 검증했다고 쓰지 않습니다. 특히 README와 릴리즈 노트처럼
   밖으로 나가는 글에서 그렇습니다.
 
-그렇게 정한 배경은 `.agents/plans/goal.md`의 「범위와 그 배경」에 있습니다.
+그렇게 정한 배경은 `.agents/project.md`의 「책임지지 않는 범위와 그 이유」에
+있습니다.
 
 ## 보안과 개인정보
 
