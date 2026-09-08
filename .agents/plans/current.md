@@ -4,4 +4,6 @@
 > 다음 행동 같은 상세 상태는 각 대작업의 `status.md`에 있습니다.
 > 대작업을 시작하고 마치는 절차는 `workstreams.md`에 있습니다.
 
-현재 진행 중인 워크스트림은 없습니다.
+- **003-verify-and-report**
+  - 소개: `.agents/plans/workstreams/003-verify-and-report/README.md`
+  - 상태: `.agents/plans/workstreams/003-verify-and-report/status.md`
