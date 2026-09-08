@@ -96,15 +96,17 @@ npx --yes github:Jammanb0/cairn check .
 ```text
   시작하면    .agents/plans/workstreams/002-length-limit/
                  README.md     무엇을 왜 하는가
-                 workflow.md   어디까지 했고 다음은 무엇인가
+                 status.md     어디까지 했고 다음은 무엇인가
+                 plan.md       어떤 순서로 할 것인가 (필요할 때만)
 
   끝나면      .agents/archive/workstreams/002-length-limit/
                  지우지 않고 그대로 옮깁니다
                  history.md 에 한 줄만 남습니다
 ```
 
-어느 브랜치에서 작업할지, 어디에 반영할지도 시작할 때 정해서 `workflow.md`에
-적어 둡니다. 다음 세션이 다시 묻지 않습니다.
+문서마다 역할이 하나씩입니다. 무엇을 왜 하는지는 `README.md`, 지금 어디까지
+왔는지는 `status.md`가 가집니다. 어느 브랜치에서 작업할지, 어디에 반영할지도
+시작할 때 정해서 `status.md`에 적어 둡니다. 다음 세션이 다시 묻지 않습니다.
 
 ## 왜 또 다른 도구인가
 
@@ -178,6 +180,27 @@ cairn은 거기에 세 가지를 더합니다.
 </details>
 
 <details>
+<summary><b>0.1.x 를 쓰고 있었는데요</b></summary>
+
+<br>
+
+0.2.0 에서 문서 구조가 바뀌었고 **호환되지 않습니다.** 문서마다 역할을 하나씩
+갖도록 나눴습니다.
+
+```text
+.agents/plans/goal.md      →  .agents/project.md
+.agents/plans/workflow.md  →  .agents/plans/current.md      진행 중인 작업
+                              .agents/plans/workstreams.md  운영 절차
+대작업별 workflow.md       →  status.md / plan.md / decisions.md
+```
+
+옛 경로로 이어 주는 파일은 두지 않았습니다. `cairn check`가 옛 구조를 만나면
+무엇이 어디로 갔는지 알려 줍니다. 이미 아카이브한 기록은 그대로 두세요 —
+그때의 구조를 그대로 남기는 것이 맞고, 검사기도 아카이브는 잡지 않습니다.
+
+</details>
+
+<details>
 <summary><b>어디까지 검증됐나요?</b></summary>
 
 <br>
@@ -195,8 +218,14 @@ cairn은 거기에 세 가지를 더합니다.
 AGENTS.md        항상 적용되는 규칙과 문서 안내표
 CLAUDE.md        "@AGENTS.md" 한 줄
 .agents/
+  project.md     이 프로젝트가 전체로서 무엇인가
   rules/         검증 · 소통 방식
-  plans/         목표 · 현재 상태 · 이력 · 아이디어
+  plans/
+    README.md       문서 지도와 읽는 순서
+    current.md      진행 중인 작업이 어디 있는가
+    workstreams.md  대작업을 어떻게 운영하는가
+    history.md      마친 작업 한 줄씩
+    ideas.md        아직 착수하지 않은 후보
     workstreams/<번호>-<이름>/    여러 날짜리 작업 하나당 폴더 하나
 ```
 

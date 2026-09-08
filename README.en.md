@@ -97,15 +97,18 @@ that folder to know where things stand.
 ```text
   Starting     .agents/plans/workstreams/002-length-limit/
                   README.md     what this is and why
-                  workflow.md   how far it got, what comes next
+                  status.md     how far it got, what comes next
+                  plan.md       the order of the work (only when useful)
 
   Finished     .agents/archive/workstreams/002-length-limit/
                   moved, not deleted
                   one line stays behind in history.md
 ```
 
-Which branch you work on and where it merges are decided up front and written
-into `workflow.md`, so the next session doesn't ask again.
+Each file has exactly one job. `README.md` says what the work is and why;
+`status.md` says how far it got. Which branch you work on and where it merges
+are decided up front and written into `status.md`, so the next session doesn't
+ask again.
 
 ## Why another tool
 
@@ -180,6 +183,27 @@ documents stop linking up.
 </details>
 
 <details>
+<summary><b>I'm on 0.1.x — what changed?</b></summary>
+
+<br>
+
+0.2.0 reorganizes the documents so each one has a single job, and it is **not
+backwards compatible.**
+
+```text
+.agents/plans/goal.md      →  .agents/project.md
+.agents/plans/workflow.md  →  .agents/plans/current.md      work in progress
+                              .agents/plans/workstreams.md  how it is run
+per-workstream workflow.md →  status.md / plan.md / decisions.md
+```
+
+Nothing is left behind to bridge the old paths. `cairn check` tells you what
+moved where when it finds the old layout. Leave anything already archived as it
+is — it records the structure of its own time, and the checker skips archives.
+
+</details>
+
+<details>
 <summary><b>How much of this is verified?</b></summary>
 
 <br>
@@ -198,8 +222,14 @@ under "Not yet verified" in the [trial records](docs/trials/README.md).
 AGENTS.md        rules that always apply, plus a table pointing to the rest
 CLAUDE.md        the single line "@AGENTS.md"
 .agents/
+  project.md     what the project is as a whole
   rules/         verification and communication
-  plans/         goal, current state, history, ideas
+  plans/
+    README.md       the document map and reading order
+    current.md      where the work in progress lives
+    workstreams.md  how multi-day work is run
+    history.md      one line per finished task
+    ideas.md        candidates not committed to yet
     workstreams/<number>-<name>/    one folder per multi-day task
 ```
 
