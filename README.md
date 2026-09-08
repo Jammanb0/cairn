@@ -210,9 +210,9 @@ cairn은 거기에 세 가지를 더합니다.
 <br>
 
 명령(`init`·`check`)은 Windows·Ubuntu·macOS에서 Node 22와 24로 CI가 매번 돌립니다.
-에이전트가 문서를 실제로 따르는지 본 시험은 아직 Windows에서만 했고, Codex는 문서
-탐색과 작업 위치 질문까지 확인했습니다. 원격 브랜치·PR 경로는 아직입니다.
-전체 목록은 [시험 기록](docs/trials/README.md)의 「아직 확인하지 않은 것」에 있습니다.
+에이전트가 문서를 실제로 따르는지 본 시험은 아직 Windows에서만 했고, Codex의 작업
+위치 질문은 부분 통과였습니다. 원격 브랜치·PR 경로는 아직입니다.
+남은 항목은 [시험 기록](docs/trials/README.md)의 「앞으로 검증할 것」에 있습니다.
 
 </details>
 

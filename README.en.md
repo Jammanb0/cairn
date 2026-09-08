@@ -215,9 +215,9 @@ workstream number is still a problem.
 
 The commands (`init`, `check`) run in CI on Windows, Ubuntu and macOS against
 Node 22 and 24. Tests of whether an agent actually follows the docs have only run
-on Windows so far; for Codex that covers document discovery and the work-location
-questions. The remote-branch/PR path hasn't been exercised yet. The full list is
-under "Not yet verified" in the [trial records](docs/trials/README.md).
+on Windows so far, and for Codex the work-location questions were only a partial
+pass. The remote-branch/PR path hasn't been exercised yet. What's left is under
+"Still to verify" in the [trial records](docs/trials/README.md).
 
 </details>
 
