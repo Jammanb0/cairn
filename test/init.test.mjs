@@ -37,6 +37,11 @@ test("골격을 만들고 프로젝트 이름을 채운다", () => {
       readdirSync(join(target, ".agents/rules")).sort(),
       ["communication.md", "verification.md"]
     );
+    assert.deepEqual(
+      readdirSync(join(target, ".agents/plans")).sort(),
+      ["README.md", "current.md", "history.md", "ideas.md", "workstreams.md"]
+    );
+    assert.ok(existsSync(join(target, ".agents/project.md")));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
