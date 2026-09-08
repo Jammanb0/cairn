@@ -27,7 +27,7 @@ Codex와 Claude Code를 함께 쓰며 며칠씩 이어지는 작업을 하는 �
 이미 돌아가는 프로젝트
   → APPLY.md: 조사 → 질문 → 승인 → 세팅 워크스트림 생성
   → 이관과 연결: 규칙은 AGENTS.md 하나, CLAUDE.md 는 "@AGENTS.md" 한 줄
-  → 여러 날 걸리는 일은 .agents/plans/workstreams/<번호>-<이름>/ 에서 관리
+  → 따로 관리할 일은 .agents/plans/workstreams/<번호>-<이름>/ 에서 관리
   → cairn check: 문서가 실제로 이어져 있는지 확인
   → 마치면 history.md 에 한 줄, 폴더는 .agents/archive/ 로
 ```
