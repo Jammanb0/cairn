@@ -37,10 +37,12 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 | 답변을 쓸 때 | `.agents/rules/communication.md` |
 | 프로젝트 전체가 무엇인지 볼 때 | `.agents/project.md` |
 | 지난 작업을 이어받을 때 | `.agents/plans/current.md` |
-| 대작업을 시작·진행·완료할 때 | `.agents/plans/workstreams.md` |
+| 그 대작업이 무엇인지 처음 볼 때 | 그 대작업의 `README.md` |
+| 어디까지 왔는지 볼 때 | 그 대작업의 `status.md` |
+| 순서와 검증 방법이 필요할 때 | 그 대작업에 `plan.md`가 있으면 그 파일 |
+| 무엇이 왜 정해졌는지 확인할 때 | 그 대작업에 `decisions.md`가 있으면 그 파일 |
+| 대작업을 만들거나 운영 방식을 바꾸거나 마칠 때 | `.agents/plans/workstreams.md` |
 | 계획 문서의 구조를 확인할 때 | `.agents/plans/README.md` |
-| 어느 대작업의 현재 상태를 볼 때 | 그 대작업의 `status.md` |
-| 무엇이 왜 정해졌는지 확인할 때 | 그 대작업의 `decisions.md` |
 | 향후 아이디어를 볼 때 | `.agents/plans/ideas.md` |
 | 마친 대작업을 찾을 때 | `.agents/plans/history.md` |
 | 무엇이 검증됐는지 확인할 때 | `docs/trials/README.md` |
@@ -56,8 +58,10 @@ AI 코딩 에이전트와 일할 때 쓰는 문서 골격입니다. 규칙의 �
 `.agents/plans/`에는 진행 중인 작업, 이력과 아이디어를 둡니다. 무엇이 진행
 중인지는 `current.md`가 가리키고, 그 대작업의 상세 상태는 폴더 안의
 `status.md`가 가집니다. 대작업을 마치면 완료든 취소든 `history.md`에 짧게
-기록하고 해당 폴더를 `.agents/archive/workstreams/`로 옮깁니다. 각 문서가
-무엇을 담는지는 `.agents/plans/README.md`에 있습니다.
+기록하고 해당 폴더를 `.agents/archive/workstreams/`로 옮깁니다. **워크스트림을
+만드는 것과 아카이브로 옮기는 것은 각각 사용자 허락을 받고 합니다.** 판단은 먼저
+하고 제안까지 합니다. 각 문서가 무엇을 담는지는 `.agents/plans/README.md`에
+있습니다.
 
 `.agents/`는 `AGENTS.md`, `CLAUDE.md`와 함께 커밋합니다.
 
