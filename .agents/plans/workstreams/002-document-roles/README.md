@@ -7,24 +7,38 @@ cairn의 문서 구조를 역할별로 다시 나누고, 골격·적용 절차·
 
 `0.1.x`의 `workflow.md`는 성격이 다른 네 가지를 한 파일에 담고 있었습니다.
 
-- 루트 `.agents/plans/workflow.md` — 현재 작업 목록 + 대작업 운영 절차
-- 대작업별 `workflow.md` — 진행 상태 + 작업 계획 + 결정 근거
+```text
+루트 .agents/plans/workflow.md
+  현재 작업 목록 + 대작업 운영 절차
+
+대작업별 workflow.md
+  진행 상태 + 작업 계획 + 결정 근거
+```
 
 한 파일이 여러 역할을 가지면 무엇을 어디에 적을지가 매번 판단 대상이 됩니다.
 현재 상태만 보려는 세션도 200줄짜리 절차를 함께 읽어야 하고, 상태를 갱신하다
-절차를 건드릴 위험도 생깁니다. `goal.md`도 이름과 달리 프로젝트 전체를 설명하고
-있어 파일명이 내용을 가리키지 못했습니다.
+절차를 건드릴 위험도 생깁니다. 프로젝트 전체를 설명하던 문서도 이름이 `goal.md`
+여서 파일명이 내용을 가리키지 못했습니다.
 
 ## 이 작업의 범위
 
-- 프로젝트 전체 설명을 `.agents/project.md`로 옮깁니다.
-- 루트 `workflow.md`를 `current.md`(현재 작업 색인)와 `workstreams.md`(운영
-  절차)로 나눕니다.
-- 대작업별 `workflow.md`를 `status.md`, `plan.md`, `decisions.md`로 나눕니다.
-  필수는 `README.md`와 `status.md`뿐입니다.
-- `template/`, `setup-workstream/`, `APPLY.md`, README 두 벌, `cairn check`와
-  그 시험, 이 저장소 자신의 운영 문서를 새 규격에 맞춥니다.
-- 버전을 `0.2.0`으로 올립니다.
+옮기는 자리는 이렇습니다.
+
+```text
+.agents/plans/goal.md      → .agents/project.md
+.agents/plans/workflow.md  → .agents/plans/current.md      현재 작업 색인
+                             .agents/plans/workstreams.md  운영 절차
+대작업별 workflow.md       → status.md     현재 상태와 다음 행동
+                             plan.md       작업 순서와 검증 방법
+                             decisions.md  결정과 그 이유
+```
+
+대작업 폴더의 필수 파일은 `README.md`와 `status.md`뿐입니다. 나머지는 필요할
+때만 만듭니다.
+
+이어서 `template/`, `setup-workstream/`, `APPLY.md`, README 두 벌, `cairn check`
+와 그 시험, 이 저장소 자신의 운영 문서를 새 규격에 맞추고 버전을 `0.2.0`으로
+올립니다.
 
 ## 제외 범위
 
@@ -32,22 +46,23 @@ cairn의 문서 구조를 역할별로 다시 나누고, 골격·적용 절차·
   파일을 남기지 않습니다. 검사기는 `0.1.x` 구조를 정상으로 인정하지 않고,
   무엇이 어디로 갔는지 안내하는 오류만 냅니다.
 - **과거 기록은 개명하지 않습니다.** `.agents/archive/`의 문서와
-  `docs/trials/`의 시험 결과는 그때 실제로 쓰던 구조와 확인한 결과이므로 그대로
-  둡니다. 지금 사용법을 설명하는 부분만 새 구조로 바꿉니다.
+  `docs/trials/README.md`의 시험 결과는 그때 실제로 쓰던 구조와 확인한
+  결과이므로 그대로 둡니다. 지금 사용법을 설명하는 부분만 새 구조로 바꿉니다.
 - 검사기가 문장의 의미까지 판정하지는 않습니다. 파일이 있는지, 서로 가리키는
   곳이 실재하는지, 목록과 폴더가 맞는지까지만 봅니다.
 
 ## 완료 조건
 
-- `.agents/project.md`, `plans/current.md`, `plans/workstreams.md`가 자리를
-  잡고 `AGENTS.md` 안내표가 실제로 그리로 이어진다.
-- `template/`에 `goal.md`와 `workflow.md`가 없고, `cairn init`으로 만든
-  프로젝트가 곧바로 `cairn check`를 통과한다.
+- `.agents/project.md`, `.agents/plans/current.md`,
+  `.agents/plans/workstreams.md`가 자리를 잡고 `AGENTS.md` 안내표가 실제로
+  그리로 이어진다.
+- `template/`에 옛 두 문서가 없고, `cairn init`으로 만든 프로젝트가 곧바로
+  `cairn check`를 통과한다.
 - `cairn check`가 새 규격의 필수 파일을 검사하고, 옛 구조를 만나면 무엇이
   어디로 갔는지 알려 준다.
 - 잡아야 할 경우와 잡으면 안 되는 경우가 모두 시험으로 고정되어 있다.
-- 저장소 전체에서 `plans/goal.md`와 `plans/workflow.md`를 현재 사용법으로
-  가리키는 곳이 없다. 아카이브와 시험 기록은 예외다.
+- 저장소 전체에서 옛 두 문서를 현재 사용법으로 가리키는 곳이 없다. 아카이브와
+  시험 기록은 예외다.
 - `npm test`, `node bin/cairn.mjs check template`, `node bin/cairn.mjs check .`
   가 모두 통과한다.
 

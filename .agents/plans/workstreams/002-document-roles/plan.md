@@ -14,13 +14,16 @@
 
 ### 1. 이 저장소의 운영 문서를 옮긴다
 
-- `.agents/plans/goal.md` → `.agents/project.md`
-- `.agents/plans/workflow.md` → `current.md`와 `workstreams.md`
-- `.agents/plans/README.md`를 문서 지도와 읽는 순서로 다시 쓴다
-- `AGENTS.md` 안내표와 `.agents/` 설명 문단을 새 경로로 바꾼다
-- `ideas.md`와 `rules/communication.md`의 옛 경로 참조를 고친다
-- 이 워크스트림 폴더를 새 형식(`README.md`, `status.md`, `plan.md`,
-  `decisions.md`)으로 만들고 `current.md`에 적는다
+```text
+.agents/plans/goal.md      → .agents/project.md
+.agents/plans/workflow.md  → .agents/plans/current.md
+                             .agents/plans/workstreams.md
+```
+
+`.agents/plans/README.md`는 문서 지도와 읽는 순서만 남깁니다. `AGENTS.md`
+안내표와 `.agents/` 설명 문단, `.agents/plans/ideas.md`와
+`.agents/rules/communication.md`의 옛 경로 참조를 새 경로로 바꿉니다. 이
+워크스트림 폴더를 새 형식으로 만들고 `.agents/plans/current.md`에 적습니다.
 
 **검증** 옮긴 파일에 빠진 내용이 없는지 옛 문서와 대조합니다. 이 단계에서는
 검사기가 아직 옛 규격이므로 `cairn check .`는 통과하지 않습니다.
@@ -35,26 +38,36 @@
 
 ### 3. 검사기를 새 규격에 맞춘다
 
-- 필수 파일 검사: `.agents/project.md`, `plans/README.md`, `plans/current.md`,
-  `plans/workstreams.md`, `plans/ideas.md`, `plans/history.md`
-- 활성 워크스트림 필수 파일: `README.md`, `status.md`
-- `plan.md`, `design.md`, `decisions.md`는 있을 때만 본다
-- `current.md`에 적힌 워크스트림과 실제 폴더를 양방향으로 대조한다
-- 옛 구조(`plans/goal.md`, `plans/workflow.md`, 워크스트림의 `workflow.md`)를
-  만나면 무엇이 어디로 갔는지 알리는 문제로 잡는다
-- 시험에서 잡아야 할 경우와 잡으면 안 되는 경우를 모두 고정한다
+필수 문서를 검사합니다.
+
+```text
+.agents/project.md
+.agents/plans/README.md
+.agents/plans/current.md
+.agents/plans/workstreams.md
+.agents/plans/ideas.md
+.agents/plans/history.md
+활성 워크스트림의 README.md 와 status.md
+```
+
+`plan.md`, `design.md`, `decisions.md`는 있을 때만 봅니다.
+`.agents/plans/current.md`에 적힌 워크스트림과 실제 폴더를 양방향으로
+대조합니다. 옛 구조를 만나면 무엇이 어디로 갔는지 알리는 문제로 잡습니다.
+잡아야 할 경우와 잡으면 안 되는 경우를 모두 시험으로 고정합니다.
 
 **검증** `npm test`, `node bin/cairn.mjs check template`,
 `node bin/cairn.mjs check .`
 
 ### 4. 세팅 워크스트림 골격을 나눈다
 
-`setup-workstream/workflow.md`를 성격에 따라 나눕니다.
+`setup-workstream/`의 두 문서를 성격에 따라 넷으로 나눕니다.
 
-- 골격 위치, 현재 상태, 열린 항목 → `status.md`
-- 적용 절차 단계 → `plan.md`
-- 어긋나는 규칙을 어느 쪽으로 정했는지 → `decisions.md`
-- 배경, 범위, 완료 조건, 초기 조사 결과 → `README.md`
+```text
+골격 위치, 현재 상태, 열린 항목      → status.md
+적용 절차 단계                       → plan.md
+어긋나는 규칙을 어느 쪽으로 정했나   → decisions.md
+배경, 범위, 완료 조건, 초기 조사     → README.md
+```
 
 절차 내용 자체는 그대로 두고 문서 경로만 새 구조로 바꿉니다.
 
@@ -65,7 +78,7 @@
 
 `APPLY.md`가 가리키는 골격 경로와 복사 명령을 4단계 결과에 맞춥니다.
 
-**검증** `APPLY.md`에 남은 `goal.md`·`workflow.md` 참조가 없는지 검색합니다.
+**검증** `APPLY.md`에 옛 문서 이름이 남아 있지 않은지 검색합니다.
 
 ### 6. README 두 벌을 맞춘다
 
@@ -76,8 +89,9 @@
 
 ### 7. 시험 기록을 정리한다
 
-`docs/trials/README.md`의 과거 결과는 그대로 두고, 그것이 `0.1.x` 구조를 대상으로
-했다는 것을 밝힙니다. 앞으로 검증할 항목의 문서 이름만 새 구조로 바꿉니다.
+`docs/trials/README.md`의 과거 결과는 그대로 두고, 그것이 `0.1.x` 구조를
+대상으로 했다는 것을 밝힙니다. 앞으로 검증할 항목의 문서 이름만 새 구조로
+바꿉니다.
 
 **검증** 과거 시험 절의 판정과 경로가 바뀌지 않았는지 확인합니다.
 
@@ -89,7 +103,8 @@
 
 ### 9. 대작업을 마친다
 
-`workstreams.md`의 「마칠 때」를 따릅니다. `history.md`에 한 줄, `current.md`에서
-제거, 폴더를 `.agents/archive/workstreams/`로 이동, 최종 커밋.
+`.agents/plans/workstreams.md`의 「마칠 때」를 따릅니다.
+`.agents/plans/history.md`에 한 줄, `.agents/plans/current.md`에서 제거, 폴더를
+`.agents/archive/workstreams/`로 이동, 최종 커밋.
 
 **검증** `npm test`, `check template`, `check .`를 마지막으로 다시 실행합니다.
