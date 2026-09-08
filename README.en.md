@@ -91,8 +91,8 @@ One source, so there is no generation step and nothing to drift out of sync.
 
 ## Work worth tracking gets its own folder
 
-Anything that won't finish in one go, or that's worth tracking on its own, gets a
-folder. A fresh session only has to read that folder to know where things stand.
+Anything worth tracking on its own gets a folder. A fresh session only has to
+read that folder to know where things stand.
 
 ```text
   Starting     .agents/plans/workstreams/002-length-limit/
@@ -101,8 +101,8 @@ folder. A fresh session only has to read that folder to know where things stand.
                   plan.md       the order of the work (only when useful)
 
   Finished     .agents/archive/workstreams/002-length-limit/
-                  moved, not deleted
-                  one line stays behind in history.md
+                  moved once the work has landed and you say so
+                  moved, not deleted; one line stays behind in history.md
 ```
 
 Each file has exactly one job. `README.md` says what the work is and why;
@@ -232,7 +232,7 @@ CLAUDE.md        the single line "@AGENTS.md"
   plans/
     README.md       the document map and reading order
     current.md      where the work in progress lives
-    workstreams.md  how multi-day work is run
+    workstreams.md  how tracked work is run
     history.md      one line per finished task
     ideas.md        candidates not committed to yet
     workstreams/<number>-<name>/    one folder per tracked piece of work

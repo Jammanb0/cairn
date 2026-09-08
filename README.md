@@ -90,8 +90,8 @@ npx --yes github:Jammanb0/cairn check .
 
 ## 따로 관리할 일은 폴더 하나로
 
-한 번에 끝나지 않고 따로 관리할 만한 일은 폴더를 하나 만들어 거기서 관리합니다.
-새 세션은 그 폴더만 보면 어디까지 왔는지 압니다.
+따로 관리할 만한 일은 폴더를 하나 만들어 거기서 관리합니다. 새 세션은 그
+폴더만 보면 어디까지 왔는지 압니다.
 
 ```text
   시작하면    .agents/plans/workstreams/002-length-limit/
@@ -100,8 +100,8 @@ npx --yes github:Jammanb0/cairn check .
                  plan.md       어떤 순서로 할 것인가 (필요할 때만)
 
   끝나면      .agents/archive/workstreams/002-length-limit/
-                 지우지 않고 그대로 옮깁니다
-                 history.md 에 한 줄만 남습니다
+                 반영과 확인이 끝난 뒤, 사용자 확인을 받고 옮깁니다
+                 지우지 않고 그대로 옮기고 history.md 에 한 줄만 남습니다
 ```
 
 문서마다 역할이 하나씩입니다. 무엇을 왜 하는지는 `README.md`, 지금 어디까지
