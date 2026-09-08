@@ -51,7 +51,7 @@ AI: 002-length-limit 워크스트림이 진행 중입니다.
 npx --yes github:Jammanb0/cairn init my-project
 ```
 
-**이미 하던 프로젝트** — 기존 파일은 하나도 건드리지 않습니다
+**이미 하던 프로젝트** — 기존 파일을 덮어쓰지 않고, 바꿀 내용은 먼저 보여줍니다
 
 ```bash
 git clone --depth 1 https://github.com/Jammanb0/cairn .cairn

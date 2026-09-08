@@ -51,7 +51,7 @@ tested — including what has **not** been verified.
 npx --yes github:Jammanb0/cairn init my-project
 ```
 
-**Project already in flight** — nothing you have is touched
+**Project already in flight** — nothing gets overwritten, and you see every change first
 
 ```bash
 git clone --depth 1 https://github.com/Jammanb0/cairn .cairn
