@@ -101,10 +101,37 @@
 
 **검증** `node bin/cairn.mjs --help`가 정상 동작하는지 확인합니다.
 
-### 9. 대작업을 마친다
+### 9. 사용자 검토를 받는다
 
-`.agents/plans/workstreams.md`의 「마칠 때」를 따릅니다.
-`.agents/plans/history.md`에 한 줄, `.agents/plans/current.md`에서 제거, 폴더를
-`.agents/archive/workstreams/`로 이동, 최종 커밋.
+작업 브랜치의 결과를 보여주고 검토를 받습니다. 이 시점에는 `main`에 반영하지
+않고 push도 하지 않습니다.
 
-**검증** `npm test`, `check template`, `check .`를 마지막으로 다시 실행합니다.
+**검증** `npm test`, `check template`, `check .`, 임시 폴더에서
+`cairn init` → `cairn check`.
+
+### 10. 검토 결과를 반영한다
+
+검토에서 나온 규칙 변경을 문서에 넣습니다.
+
+```text
+아카이브 승인과 순서   → workstreams.md 「마칠 때」
+plan.md 생성 조건      → plans/README.md 「plan.md」
+문서 읽는 시점         → AGENTS.md 안내표, plans/README.md 「읽는 순서」
+대작업 판단 기준       → workstreams.md 「무엇을 대작업으로 보는가」
+```
+
+자기 운영 문서와 `template/`을 같이 고칩니다. 새 규칙에 맞춰 이 워크스트림도
+활성 상태로 되돌립니다 — 아직 `main`에 반영하지 않았으므로 완료 아카이브로
+둘 수 없습니다.
+
+**검증** 9단계와 같은 명령에 `git diff --check`를 더하고, 활성 워크스트림이
+`current.md`·`status.md`·실제 폴더와 맞는지 확인합니다.
+
+### 11. 대작업을 마친다
+
+`.agents/plans/workstreams.md`의 「마칠 때」를 따릅니다. 반영과 아카이브에
+사용자 승인을 받고, 반영과 대상 위치 검증이 끝난 뒤에
+`.agents/plans/history.md`에 한 줄을 남기고 폴더를 아카이브로 옮깁니다.
+
+**검증** 반영한 브랜치에서 `npm test`, `check template`, `check .`를
+마지막으로 다시 실행합니다.

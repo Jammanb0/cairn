@@ -6,7 +6,6 @@
 | 기간 | 대작업 | 결과 | 기록 |
 | --- | --- | --- | --- |
 | 2026-09-06~07 | cairn 구조 적용 | 완료 — 이 저장소가 자기 문서 골격으로 운영됩니다. 규칙과 목표가 문서로 남고 `cairn check`가 연결을 확인합니다 | `.agents/archive/workstreams/001-cairn-setup/README.md` |
-| 2026-09-08 | 문서 역할 분리 | 완료 — 문서마다 역할이 하나씩인 0.2.0 구조로 골격·적용 절차·검사기를 옮겼습니다. 0.1.x 와 호환되지 않습니다 | `.agents/archive/workstreams/002-document-roles/README.md` |
 <!-- 대작업을 마칠 때마다 한 줄씩 더합니다. 결과는 완료일 수도 취소일
      수도 있고, 어느 쪽이든 남깁니다.
      예) | 2026-09-02~03 | 초기 파이프라인 구축 | 완료 — 무엇이 가능해졌는지 한 줄 | `.agents/archive/workstreams/001-initial-pipeline/README.md` |
