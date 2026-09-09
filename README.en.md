@@ -201,10 +201,14 @@ Nothing is left behind to bridge the old paths. `cairn check` tells you what
 moved where when it finds the old layout.
 
 Leave anything already archived as it is — it records the structure of its own
-time, and the checker does not report old documents inside an archive as the old
-layout. It does not skip archives entirely, though: a path an archived document
-points at that no longer exists is reported for review, and a duplicate
-workstream number is still a problem.
+time, and the checker does not look inside archives at all. Neither a stale path
+nor a leftover reference to the temporary skeleton is reported. Archives are
+yours to manage.
+
+Only the folder names are read. A new workstream that reuses a past number is a
+problem, reported against the new folder since that is the one to fix. If you do
+delete an archived folder, drop its row from `history.md` too — an index that
+points at a folder which is gone is a problem.
 
 </details>
 
