@@ -28,6 +28,15 @@ function makeWorkstream(dir, name, extra = []) {
   return path;
 }
 
+// 아카이브로 옮긴 워크스트림. 파일 내용은 그때의 기록이라 자유 형식이다.
+function makeArchived(dir, name, files = {}) {
+  const path = join(dir, ".agents/archive/workstreams", name);
+  mkdirSync(path, { recursive: true });
+  writeFileSync(join(path, "README.md"), "# 지난 대작업\n");
+  for (const [file, body] of Object.entries(files)) writeFileSync(join(path, file), body);
+  return path;
+}
+
 // current.md 에 이 워크스트림들을 적는다.
 function listCurrent(dir, ...names) {
   const body = names
@@ -251,6 +260,10 @@ test("워크스트림 번호가 겹치면 잡는다", () => {
     const result = check(dir);
     assert.equal(result.problems.length, 1, messages(result));
     assert.match(result.problems[0].message, /번호 001 가/);
+    assert.ok(
+      result.problems[0].where.startsWith(".agents/plans/workstreams/001-first"),
+      result.problems[0].where
+    );
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
@@ -374,22 +387,60 @@ test("활성 문서에서 표식 모양을 인용해도 자리표시자로 세�
   }
 });
 
-test("아카이브는 자리표시자를 세지 않고, 끊긴 경로도 확인으로만 본다", () => {
-  const dir = project((d) => {
-    const path = join(d, ".agents/archive/workstreams/001-old");
-    mkdirSync(path, { recursive: true });
-    writeFileSync(join(path, "README.md"), "# 지난 대작업\n");
-    writeFileSync(
-      join(path, "status.md"),
-      "# 상태\n\n<!-- 채우기: 그때 채우던 자리 -->\n\n당시에는 `.agents/plans/gone.md` 를 보고 있었습니다.\n"
+// 아카이브는 지나간 기록이고 관리는 사용자 몫이라 검사 대상에서 뺀다.
+// 끊긴 옛 경로, 그때의 채우기 자리, 임시 골격 참조가 모두 정상이다.
+test("아카이브 안의 문서는 검사하지 않는다", () => {
+  const dir = project((d) =>
+    makeArchived(d, "001-old", {
+      "status.md":
+        "# 상태\n\n<!-- 채우기: 그때 채우던 자리 -->\n\n당시에는 `.agents/plans/gone.md` 와 .cairn 을 보고 있었습니다.\n",
+    })
+  );
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    assert.ok(
+      !result.notices.some((f) => f.where.includes("001-old")),
+      messages(result)
     );
+    const line = result.passed.find((p) => p.includes("가리키는 경로"));
+    assert.ok(line && !line.includes("아카이브"), result.passed.join(", "));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("아카이브 폴더 이름이 형식에 어긋나도 잡지 않는다", () => {
+  const dir = project((d) => makeArchived(d, "old-notes"));
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    assert.ok(!result.notices.some((f) => f.where.includes("old-notes")), messages(result));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("아카이브끼리 번호가 겹쳐도 잡지 않는다", () => {
+  const dir = project((d) => {
+    makeArchived(d, "001-first");
+    makeArchived(d, "001-second");
   });
   try {
     const result = check(dir);
     assert.deepEqual(result.problems, [], messages(result));
-    assert.match(messages(result), /가리키는 .agents\/plans\/gone.md 가 지금은 없습니다/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("아카이브만 있고 진행 중인 대작업이 없어도 통과한다", () => {
+  const dir = project((d) => makeArchived(d, "001-old"));
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
     assert.ok(
-      !result.notices.some((f) => f.where.includes("001-old") && f.message.includes("채우지 않은")),
+      !result.notices.some((f) => f.where.includes("archive")),
       messages(result)
     );
   } finally {
@@ -397,19 +448,20 @@ test("아카이브는 자리표시자를 세지 않고, 끊긴 경로도 확인�
   }
 });
 
-test("아카이브에 끊긴 경로가 있으면 통과 문구가 그 사실을 밝힌다", () => {
-  const dir = project((d) => {
-    const path = join(d, ".agents/archive/workstreams/001-old");
-    mkdirSync(path, { recursive: true });
-    writeFileSync(join(path, "README.md"), "# 지난 대작업\n");
-    writeFileSync(join(path, "status.md"), "# 상태\n\n당시에는 `.agents/plans/gone.md` 를 보고 있었습니다.\n");
-  });
+// 아카이브를 지우기로 했다면 색인도 함께 고쳐야 한다. 색인은 활성 문서다.
+test("history.md 가 없어진 아카이브를 가리키면 잡는다", () => {
+  const dir = project((d) =>
+    writeFileSync(
+      join(d, ".agents/plans/history.md"),
+      "# 대작업 이력\n\n| 기간 | 대작업 | 결과 | 기록 |\n| --- | --- | --- | --- |\n" +
+        "| 2026-01-01 | 지난 일 | 완료 | `.agents/archive/workstreams/001-gone/README.md` |\n"
+    )
+  );
   try {
     const result = check(dir);
-    assert.deepEqual(result.problems, [], messages(result));
-    const line = result.passed.find((p) => p.includes("가리키는 경로"));
-    assert.ok(line, result.passed.join(", "));
-    assert.match(line, /활성 문서가 가리키는 경로 \d+곳 \(아카이브 1곳은 아래 확인\)/);
+    assert.equal(result.problems.length, 1, messages(result));
+    assert.match(result.problems[0].message, /001-gone\/README.md 가 없습니다/);
+    assert.match(result.problems[0].where, /history\.md/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
