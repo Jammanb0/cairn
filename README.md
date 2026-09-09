@@ -11,7 +11,7 @@ Codex와 Claude Code가 같은 것을 읽습니다.
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![node](https://img.shields.io/badge/node-%E2%89%A522-brightgreen.svg)](package.json)
 
-[English](README.en.md) · [시험 기록](docs/trials/README.md) · [적용 절차](APPLY.md)
+[English](README.en.md) · [검증 현황](docs/trials/README.md) · [적용 절차](APPLY.md)
 
 </div>
 
@@ -40,8 +40,8 @@ AI: 002-length-limit 워크스트림이 진행 중입니다.
     작업 브랜치는 workstream/002-length-limit, main에 반영 예정입니다.
 ```
 
-실제로 이렇게 동작하는지 시험한 기록은 [여기](docs/trials/README.md)에 있습니다.
-무엇을 확인하지 **않았는지**도 같은 문서에 적어 두었습니다.
+실제로 이렇게 동작하는지 확인한 결과는 [검증 현황](docs/trials/README.md)에
+있습니다. 무엇이 아직 안 되는지도 같은 문서의 「알려진 제한」에 적어 두었습니다.
 
 ## 5분 만에 시작하기
 
@@ -210,9 +210,9 @@ cairn은 거기에 세 가지를 더합니다.
 <br>
 
 명령(`init`·`check`)은 Windows·Ubuntu·macOS에서 Node 22와 24로 CI가 매번 돌립니다.
-에이전트가 문서를 실제로 따르는지 본 시험은 아직 Windows에서만 했고, Codex의 작업
-위치 질문은 부분 통과였습니다. 원격 브랜치·PR 경로는 아직입니다.
-남은 항목은 [시험 기록](docs/trials/README.md)의 「앞으로 검증할 것」에 있습니다.
+에이전트가 문서를 실제로 따르는지는 임시 프로젝트에서 적용·이어받기·마무리를 한
+흐름으로 돌려 확인했습니다. 아직 Claude Code에서만 했고 원격 브랜치·PR 경로는
+아직입니다. 전체는 [검증 현황](docs/trials/README.md)에 있습니다.
 
 </details>
 

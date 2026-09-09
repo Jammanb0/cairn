@@ -11,7 +11,7 @@ Codex and Claude Code read the same file.
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![node](https://img.shields.io/badge/node-%E2%89%A522-brightgreen.svg)](package.json)
 
-[한국어](README.md) · [Trial records](docs/trials/README.md) · [Adoption guide](APPLY.md)
+[한국어](README.md) · [Verification status](docs/trials/README.md) · [Adoption guide](APPLY.md)
 
 </div>
 
@@ -40,8 +40,8 @@ AI:  The 002-length-limit workstream is in progress.
      Working branch is workstream/002-length-limit, merging into main.
 ```
 
-The [trial records](docs/trials/README.md) document how this was actually
-tested — including what has **not** been verified.
+What was actually checked is in the [verification status](docs/trials/README.md),
+along with what still doesn't work under "알려진 제한" (known limits).
 
 ## Get started in five minutes
 
@@ -214,10 +214,10 @@ workstream number is still a problem.
 <br>
 
 The commands (`init`, `check`) run in CI on Windows, Ubuntu and macOS against
-Node 22 and 24. Tests of whether an agent actually follows the docs have only run
-on Windows so far, and for Codex the work-location questions were only a partial
-pass. The remote-branch/PR path hasn't been exercised yet. What's left is under
-"Still to verify" in the [trial records](docs/trials/README.md).
+Node 22 and 24. Whether an agent actually follows the docs was checked by running
+adoption, handover and wrap-up as one flow on a throwaway project — so far only
+with Claude Code, and the remote-branch/PR path hasn't been exercised. The full
+picture is in the [verification status](docs/trials/README.md).
 
 </details>
 
