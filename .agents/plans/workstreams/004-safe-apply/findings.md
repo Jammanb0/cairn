@@ -132,7 +132,7 @@
 
 ```text
 git log -p --all | grep -c "<계정명>"                    → 0
-git log -p --all | grep -cE "AppData|scratchpad|C:[/\]" → 0
+git log -p --all | grep -cE "AppData|scratchpad|C:[/\\]" → 0
 ```
 
 부트스트랩 커밋 시점의 `status.md`를 꺼내 보니 그때부터 상대 경로였습니다.
@@ -182,7 +182,7 @@ git log -p --all | grep -cE "AppData|scratchpad|C:[/\]" → 0
 ## 옛 문장이 새 원칙과 충돌해 함께 고친 것
 
 절대 경로를 적지 않기로 정한 뒤에도 「실제 경로를 적는다」는 전제로 쓰인 문장이
-네 곳 남아 있었습니다. 한쪽만 고치면 갈라진다는 것을 이 대작업에서 세 번
+**네 문서의 여섯 곳**에 남아 있었습니다. 한쪽만 고치면 갈라진다는 것을 이 대작업에서 세 번
 확인했으므로, 표현을 검색해 함께 맞췄습니다.
 
 | 자리 | 무엇이 어긋났나 |
