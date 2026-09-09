@@ -23,3 +23,5 @@ jobs:
       - run: npm test
       # 골격 자체가 검사를 통과하는지 확인한다.
       - run: node bin/cairn.mjs check template
+      # 이 저장소는 자기 자신에게 cairn 을 적용해 운영하므로 함께 검사한다.
+      - run: node bin/cairn.mjs check .
