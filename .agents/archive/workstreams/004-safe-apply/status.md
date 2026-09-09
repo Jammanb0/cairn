@@ -24,7 +24,7 @@
 
 ## 직전 완료
 
-검증 기록 커밋 `fb1f207`까지 `main`에 fast-forward로 반영했습니다. `main`에서
+검증 기록 커밋 `5c51729`까지 `main`에 fast-forward로 반영했습니다. `main`에서
 `npm test` 37개와 `cairn check template`, `cairn check .`를 다시 실행해 모두
 통과했습니다. Codex 전체 적용 시험은 종료 검사 명령만 같은 cairn 작업 트리의
 로컬 검사기로 대체했습니다.
