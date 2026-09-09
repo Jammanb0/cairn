@@ -480,3 +480,58 @@ test("문제가 있으면 종료 코드 1로 끝낸다", () => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+// 적용이 진행 중일 때 검사기가 자기 한계를 알리는지 본다.
+
+test("세팅 워크스트림이 활성이면 골격 참조 검사의 한계를 알린다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "001-cairn-setup");
+    listCurrent(d, "001-cairn-setup");
+  });
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    const hit = result.notices.find((f) => /적용이 진행 중입니다/.test(f.message));
+    assert.ok(hit, messages(result));
+    assert.match(hit.message, /`\.cairn` 만 봅니다/);
+    assert.equal(hit.where, ".agents/plans/workstreams/001-cairn-setup");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("세팅 워크스트림이 없으면 그 안내를 내지 않는다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search-rework");
+    listCurrent(d, "004-search-rework");
+  });
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    assert.ok(
+      !result.notices.some((f) => /적용이 진행 중입니다/.test(f.message)),
+      messages(result)
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("아카이브로 옮긴 세팅 워크스트림은 그 안내를 내지 않는다", () => {
+  const dir = project((d) => {
+    const path = join(d, ".agents/archive/workstreams/001-cairn-setup");
+    mkdirSync(path, { recursive: true });
+    writeFileSync(join(path, "README.md"), "# 대작업: cairn 구조 적용\n");
+    writeFileSync(join(path, "status.md"), "# 상태\n");
+  });
+  try {
+    const result = check(dir);
+    assert.deepEqual(result.problems, [], messages(result));
+    assert.ok(
+      !result.notices.some((f) => /적용이 진행 중입니다/.test(f.message)),
+      messages(result)
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
