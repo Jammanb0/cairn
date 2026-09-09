@@ -131,8 +131,8 @@
 에이전트의 보고가 아니라 픽스처 저장소의 이력을 직접 뒤졌습니다.
 
 ```text
-git log -p --all | grep -c "<계정명>"                    → 0
-git log -p --all | grep -cE "AppData|scratchpad|C:[/\\]" → 0
+git log -p --all | grep -c '<계정명>'                    → 0
+git log -p --all | grep -cE 'AppData|scratchpad|C:[/\\]' → 0
 ```
 
 부트스트랩 커밋 시점의 `status.md`를 꺼내 보니 그때부터 상대 경로였습니다.
