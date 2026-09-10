@@ -180,7 +180,7 @@ cairn은 거기에 세 가지를 더합니다.
 </details>
 
 <details>
-<summary><b>마친 작업 기록은 어떻게 다루나요</b></summary>
+<summary><b>마친 작업 기록은 어떻게 다루나요?</b></summary>
 
 <br>
 
