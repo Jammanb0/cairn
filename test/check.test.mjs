@@ -168,79 +168,18 @@ test("plan.md·design.md·decisions.md는 없어도 문제가 아니고 있어�
   }
 });
 
-// 이전 구조를 만났을 때
-
-test("이전 루트 workflow.md를 만나면 어디로 나뉘었는지 알린다", () => {
-  const dir = project((d) =>
-    writeFileSync(join(d, ".agents/plans/workflow.md"), "# 전체 작업 흐름\n\n## 현재 대작업\n")
-  );
-  try {
-    const result = check(dir);
-    assert.equal(result.problems.length, 1, messages(result));
-    assert.equal(result.problems[0].where, ".agents/plans/workflow.md");
-    assert.match(result.problems[0].message, /이전 cairn 문서 구조입니다/);
-    assert.match(result.problems[0].message, /\.agents\/plans\/current\.md/);
-    assert.match(result.problems[0].message, /\.agents\/plans\/workstreams\.md/);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-test("이전 goal.md를 만나면 project.md로 옮기라고 알린다", () => {
-  const dir = project((d) => writeFileSync(join(d, ".agents/plans/goal.md"), "# 목표\n"));
-  try {
-    const result = check(dir);
-    assert.equal(result.problems.length, 1, messages(result));
-    assert.equal(result.problems[0].where, ".agents/plans/goal.md");
-    assert.match(result.problems[0].message, /\.agents\/project\.md/);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-test("활성 워크스트림의 workflow.md를 만나면 셋으로 나뉘었다고 알린다", () => {
-  const dir = project((d) => {
-    makeWorkstream(d, "004-search-rework", ["workflow.md"]);
-    listCurrent(d, "004-search-rework");
-  });
-  try {
-    const result = check(dir);
-    assert.equal(result.problems.length, 1, messages(result));
-    assert.equal(
-      result.problems[0].where,
-      ".agents/plans/workstreams/004-search-rework/workflow.md"
-    );
-    assert.match(result.problems[0].message, /status\.md/);
-    assert.match(result.problems[0].message, /plan\.md/);
-    assert.match(result.problems[0].message, /decisions\.md/);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-test("아카이브에 남은 workflow.md는 그때의 기록이라 잡지 않는다", () => {
-  const dir = project((d) => {
-    const path = join(d, ".agents/archive/workstreams/001-old");
-    mkdirSync(path, { recursive: true });
-    writeFileSync(join(path, "README.md"), "# 지난 대작업\n");
-    writeFileSync(join(path, "workflow.md"), "# 진행\n");
-  });
-  try {
-    assert.deepEqual(check(dir).problems, [], messages(check(dir)));
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
-});
-
 test("여러 줄짜리 안내는 메시지 열에 맞춰 들여쓴다", () => {
-  const dir = project((d) => writeFileSync(join(d, ".agents/plans/workflow.md"), "# 전체 작업 흐름\n"));
+  const dir = project((d) => {
+    makeWorkstream(d, "001-cairn-setup");
+    listCurrent(d, "001-cairn-setup");
+  });
   try {
     const lines = format(check(dir)).split("\n");
-    const head = lines.findIndex((l) => l.includes("이전 cairn 문서 구조입니다"));
+    const head = lines.findIndex((l) => l.includes("적용이 진행 중입니다"));
     assert.ok(head !== -1, lines.join("\n"));
     const next = lines[head + 1];
-    assert.match(next, /^ {2,}현재 작업 목록: /);
-    assert.equal(next.indexOf("현재"), lines[head].indexOf("이전"));
+    assert.match(next, /^ {2,}골격을 다른 이름이나 경로에/);
+    assert.equal(next.indexOf("골격을"), lines[head].indexOf("적용이"));
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }
