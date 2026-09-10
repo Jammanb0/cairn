@@ -62,8 +62,11 @@
 - `cairn check .` exit 0, `cairn check template` exit 0
 - `cairn init` 왕복 통과
 - `npm pack --dry-run` 21개 파일 — 배포물 구성은 그대로
-- 저장소 전체에서 `0.1.x`·`workflow.md`·`goal.md`를 훑어 남은 안내가 없는 것을
-  확인. 걸린 둘은 002 의 지난 이력 한 줄과 이번에 새로 쓴 제외 범위 항목입니다
+- `0.1.x`·`workflow.md`·`goal.md`를 훑어, **지금 쓰는 법을 설명하는 README와
+  제품 코드·시험에** 옛 이관 안내가 남지 않은 것을 확인. 아카이브, 007 작업
+  기록, `history.md`, `docs/trials`의 제외 범위 언급은 지나간 기록이거나 이번에
+  일부러 쓴 것이라 그대로 둡니다. 필터 없이 세면 61곳이 걸리는데, 대부분 그
+  자리들입니다
 
 ## 다음 행동
 
