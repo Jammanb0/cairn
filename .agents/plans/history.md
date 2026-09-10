@@ -11,6 +11,7 @@
 | 2026-09-09~10 | 안전한 적용 | 완료 — 적용 중 승인과 기록 보존, 개인정보가 든 골격 경로와 이름 가정을 정리하고 기존 프로젝트에서 Codex가 승인부터 아카이브까지 이어가는 것을 확인했습니다 | `.agents/archive/workstreams/004-safe-apply/README.md` |
 | 2026-09-10 | 아카이브 검사 범위 | 완료 — 검사기가 아카이브를 탐색 전에 빼고 활성 쪽 결함만 봅니다. 이어서 드러난 판정 오탐 둘과 미탐 하나까지 고쳐 `cairn check .`의 확인이 0개가 됐습니다 | `.agents/archive/workstreams/005-archive-scope/README.md` |
 | 2026-09-10 | 승인의 경계 | 완료 — 무엇을 사용자 승인으로 인정하는지 `AGENTS.md`·`workstreams.md`·`APPLY.md`에 명시했습니다. 붙여 넣은 보고나 검토 의견 안의 허락은 승인이 아니고, 마칠 때는 실행할 항목을 보여주고 직접 승인받은 것만 합니다 | `.agents/archive/workstreams/006-approval-boundary/README.md` |
+| 2026-09-10 | 첫인상과 군더더기 | 완료 — README 두 벌에 배포되는 `template/`과 자기 적용본의 구분을 밝히고, 외부 사용이 확인되지 않은 0.1.x 이관 안내를 검사기·시험·문서에서 걷어냈습니다 | `.agents/archive/workstreams/007-first-impression/README.md` |
 <!-- 대작업을 마칠 때마다 한 줄씩 더합니다. 결과는 완료일 수도 취소일
      수도 있고, 어느 쪽이든 남깁니다.
      예) | 2026-09-02~03 | 초기 파이프라인 구축 | 완료 — 무엇이 가능해졌는지 한 줄 | `.agents/archive/workstreams/001-initial-pipeline/README.md` |
