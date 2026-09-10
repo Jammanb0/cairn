@@ -17,18 +17,20 @@
 `workstreams.md`의 「작업 위치를 정할 때」 질문 순서와 어긋납니다. 충돌을
 알리고 005의 관례를 따랐습니다. 다르게 하려면 알려 주세요.
 
-**이번에 받은 승인의 범위**
+**받은 승인의 범위**
 
 - 워크스트림 생성 — 받음
 - `AGENTS.md`·`APPLY.md`·`workstreams.md` 수정 — 받음
 - 커밋 — 받음, 건별로 다시 묻지 않음
-- push — **받지 않음**
+- `3fd95e0` 커밋 메시지 reword(rebase) — 받음
+- `main` 반영과 push — 받음
 - 대작업 종료와 아카이브 — **받지 않음**
+- 작업 브랜치와 `backup-006-before-reword` 삭제 — **받지 않음**
 
 ## 현재 단계
 
-`plan.md`의 1~5단계를 마쳤습니다. 검토 대기입니다. push와 종료는 승인을 받지
-않았으므로 하지 않습니다.
+`plan.md`의 1~5단계를 마치고 `main`에 반영해 push했습니다. 종료와 아카이브는
+승인을 받지 않았으므로 대작업을 활성으로 둡니다.
 
 ## 직전 완료
 
@@ -58,10 +60,28 @@
 - `setup-workstream/`, `APPLY.md`, README 두 벌에서 승인 표현을 훑어 어긋나는
   안내가 남지 않은 것을 확인했습니다
 
+## 반영과 검증
+
+`main`에 fast-forward로 반영하고 `origin/main`에 push했습니다(`6e0cbf1` →
+`3b93cd4`). 반영 뒤 `main`에서 다시 확인했습니다.
+
+- `npm test` 46개 통과
+- `cairn check .` exit 0, `cairn check template` exit 0
+- 승인 규칙이 `main`의 `AGENTS.md` 두 벌과 `workstreams.md` 두 벌에 실제로
+  들어간 것을 확인
+- push 전에 올라갈 7커밋의 메시지 전문과 각 커밋 diff를 따로 훑어 개인
+  경로·계정·시크릿이 없는 것을 확인
+
+`3fd95e0`의 메시지에 남아 있던 「그 피드백이 권한 실행」도 reword로 고쳤습니다
+(`9996d33`). rebase 전후 트리가 같아 파일 내용은 바뀌지 않았고, 되돌릴 수 있게
+`backup-006-before-reword` 브랜치를 남겨 두었습니다.
+
 ## 다음 행동
 
-사용자 검토를 기다립니다. `main` 반영과 push, 종료·아카이브는 각각 승인을 받고
-합니다.
+종료와 아카이브 승인을 기다립니다. 승인이 나면 `status.md` 완료 최종화 →
+`history.md` 기록 → `current.md` 비우기 → 폴더를 `.agents/archive/workstreams/`로
+이동 → `cairn check` → 최종 커밋과 push → 작업 브랜치와 백업 브랜치 정리
+순서입니다.
 
 ## 막힌 점과 열린 질문
 
