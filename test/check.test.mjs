@@ -342,6 +342,25 @@ test("current.md가 형식 없이 이름만 적어도 적힌 것으로 본다", 
   }
 });
 
+// 넉넉하게 보더라도 이름 경계는 지킨다. 부분 문자열을 인정하면 짧은 이름이
+// 긴 이름 한 줄에 가려져 이어받을 곳을 못 찾는다.
+test("이름이 다른 이름의 일부로만 나오면 적힌 것으로 보지 않는다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search");
+    writeFileSync(
+      join(d, ".agents/plans/current.md"),
+      "# 현재 대작업\n\n지금은 004-search-rework 를 준비 중입니다.\n"
+    );
+  });
+  try {
+    const result = check(dir);
+    assert.equal(result.problems.length, 1, messages(result));
+    assert.match(result.problems[0].message, /004-search 이 없어 새 세션이 찾지 못합니다/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("대작업이 동시에 여러 개여도 모두 적혀 있으면 통과한다", () => {
   const dir = project((d) => {
     makeWorkstream(d, "004-search-rework");
