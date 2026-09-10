@@ -183,27 +183,14 @@ documents stop linking up.
 </details>
 
 <details>
-<summary><b>I'm on 0.1.x — what changed?</b></summary>
+<summary><b>What happens to finished work?</b></summary>
 
 <br>
 
-0.2.0 reorganizes the documents so each one has a single job, and it is **not
-backwards compatible.**
-
-```text
-.agents/plans/goal.md      →  .agents/project.md
-.agents/plans/workflow.md  →  .agents/plans/current.md      work in progress
-                              .agents/plans/workstreams.md  how it is run
-per-workstream workflow.md →  status.md / plan.md / decisions.md
-```
-
-Nothing is left behind to bridge the old paths. `cairn check` tells you what
-moved where when it finds the old layout.
-
-Leave anything already archived as it is — it records the structure of its own
-time, and the checker does not look inside archives at all. Neither a stale path
-nor a leftover reference to the temporary skeleton is reported. Archives are
-yours to manage.
+A finished workstream moves to `.agents/archive/workstreams/` and stays as it
+is. It records the structure and the judgement of its own time, so **the checker
+does not look inside archives at all.** Neither a stale path nor a leftover
+reference to the temporary skeleton is reported. Archives are yours to manage.
 
 Only the folder names are read. A new workstream that reuses a past number is a
 problem, reported against the new folder since that is the one to fix. If you do
@@ -227,6 +214,9 @@ picture is in the [verification status](docs/trials/README.md).
 
 ## What's in it
 
+This is what `cairn init` gives you. The original lives in `template/` in this
+repository, and most of it arrives blank — you fill it in as you go.
+
 ```text
 AGENTS.md        rules that always apply, plus a table pointing to the rest
 CLAUDE.md        the single line "@AGENTS.md"
@@ -244,6 +234,12 @@ CLAUDE.md        the single line "@AGENTS.md"
 
 There are two commands, `init` and `check`, and **you need neither.** Copying the
 files gives the same result, and you can check the links by eye.
+
+If you are browsing this repository and notice an `AGENTS.md` and an `.agents/`
+at the root too, those are not part of what ships. **They are cairn applied to
+cairn itself** — real operating documents, where you can read the work in
+progress and the record of what came before. CI runs `cairn check .` against
+them on every push. What you get is the `template/` copy.
 
 ---
 

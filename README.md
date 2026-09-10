@@ -180,26 +180,14 @@ cairn은 거기에 세 가지를 더합니다.
 </details>
 
 <details>
-<summary><b>0.1.x 를 쓰고 있었는데요</b></summary>
+<summary><b>마친 작업 기록은 어떻게 다루나요</b></summary>
 
 <br>
 
-0.2.0 에서 문서 구조가 바뀌었고 **호환되지 않습니다.** 문서마다 역할을 하나씩
-갖도록 나눴습니다.
-
-```text
-.agents/plans/goal.md      →  .agents/project.md
-.agents/plans/workflow.md  →  .agents/plans/current.md      진행 중인 작업
-                              .agents/plans/workstreams.md  운영 절차
-대작업별 workflow.md       →  status.md / plan.md / decisions.md
-```
-
-옛 경로로 이어 주는 파일은 두지 않았습니다. `cairn check`가 옛 구조를 만나면
-무엇이 어디로 갔는지 알려 줍니다.
-
-이미 아카이브한 기록은 그대로 두세요. 그때의 구조를 그대로 남기는 것이 맞고,
-검사기는 아카이브 안을 들여다보지 않습니다. 끊긴 옛 경로도, 그때 쓰던 임시
-골격 참조도 잡지 않습니다. 아카이브 관리는 사용자 몫입니다.
+마친 대작업은 `.agents/archive/workstreams/`로 옮기고 그대로 둡니다. 그때의
+구조와 그때의 판단을 담고 있는 것이 정상이라, **검사기는 아카이브 안을
+들여다보지 않습니다.** 끊긴 옛 경로도, 그때 쓰던 임시 골격 참조도 잡지
+않습니다. 아카이브 관리는 사용자 몫입니다.
 
 폴더 이름만 읽습니다. 새 대작업이 지난 번호를 다시 쓰면 문제로 잡고, 고칠 곳은
 새로 만든 쪽이라 그 자리를 가리킵니다. 폴더를 지우기로 했다면 `history.md`의
@@ -221,6 +209,9 @@ cairn은 거기에 세 가지를 더합니다.
 
 ## 들어 있는 것
 
+`cairn init`이 만들어 주는 것입니다. 원본은 이 저장소의 `template/`에 있고,
+받으면 대부분 빈 자리라 채워 넣으며 씁니다.
+
 ```text
 AGENTS.md        항상 적용되는 규칙과 문서 안내표
 CLAUDE.md        "@AGENTS.md" 한 줄
@@ -238,6 +229,11 @@ CLAUDE.md        "@AGENTS.md" 한 줄
 
 명령은 `init`과 `check` 둘뿐이고, **둘 다 없어도 됩니다.** 복사만 해도 같은
 결과이고 검사는 눈으로 해도 됩니다.
+
+이 저장소를 둘러보다 루트에도 `AGENTS.md`와 `.agents/`가 있는 것을 보셨다면,
+그건 배포물이 아닙니다. **cairn을 cairn 자신에게 적용한 실제 운영
+문서입니다.** 여기서 진행 중인 작업과 지난 기록을 그대로 볼 수 있고, CI가
+매번 `cairn check .`으로 검사합니다. 받는 것은 `template/` 쪽입니다.
 
 ---
 
