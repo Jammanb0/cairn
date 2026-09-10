@@ -297,6 +297,51 @@ test("current.md의 주석 속 작성 예시는 적힌 것으로 세지 않는�
   }
 });
 
+test("current.md의 날짜는 대작업 번호로 세지 않는다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search-rework");
+    listCurrent(d, "004-search-rework");
+    appendFileSync(join(d, ".agents/plans/current.md"), "\n2026-09-10 기준입니다.\n");
+  });
+  try {
+    assert.deepEqual(check(dir).problems, [], messages(check(dir)));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("current.md가 지나간 대작업을 말로 언급해도 활성으로 세지 않는다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search-rework");
+    listCurrent(d, "004-search-rework");
+    appendFileSync(
+      join(d, ".agents/plans/current.md"),
+      "\n003-old-thing 은 지난달에 마쳤고 여기서 뺐습니다.\n"
+    );
+  });
+  try {
+    assert.deepEqual(check(dir).problems, [], messages(check(dir)));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// 반대쪽은 넉넉하게 본다. 이어받을 곳을 못 찾는 것이 더 큰 문제라서다.
+test("current.md가 형식 없이 이름만 적어도 적힌 것으로 본다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search-rework");
+    writeFileSync(
+      join(d, ".agents/plans/current.md"),
+      "# 현재 대작업\n\n지금은 004-search-rework 하나만 진행 중입니다.\n"
+    );
+  });
+  try {
+    assert.deepEqual(check(dir).problems, [], messages(check(dir)));
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("대작업이 동시에 여러 개여도 모두 적혀 있으면 통과한다", () => {
   const dir = project((d) => {
     makeWorkstream(d, "004-search-rework");
@@ -467,6 +512,47 @@ test("history.md 가 없어진 아카이브를 가리키면 잡는다", () => {
   }
 });
 
+test("활성 문서가 지울 골격 안의 경로를 가리키면 알린다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search-rework");
+    listCurrent(d, "004-search-rework");
+    appendFileSync(
+      join(d, ".agents/plans/workstreams/004-search-rework/status.md"),
+      "\n원문은 `.cairn/APPLY.md` 에 있습니다.\n"
+    );
+  });
+  try {
+    const result = check(dir);
+    const hit = result.notices.find((f) => /`\.cairn` 참조가/.test(f.message));
+    assert.ok(hit, messages(result));
+    assert.equal(hit.where, ".agents/plans/workstreams/004-search-rework/status.md");
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+// 이름을 말로 부르는 것은 가리키는 것이 아니다. 검사기를 설명하는 문서가 자기
+// 설명 때문에 걸리면 그 검사는 아무도 보지 않게 된다.
+test("활성 문서가 골격 이름을 말로 설명하기만 하면 알리지 않는다", () => {
+  const dir = project((d) => {
+    makeWorkstream(d, "004-search-rework");
+    listCurrent(d, "004-search-rework");
+    appendFileSync(
+      join(d, ".agents/plans/workstreams/004-search-rework/status.md"),
+      "\n줄에 `.cairn` 이 들어 있기만 하면 세던 것을 고쳤습니다.\n"
+    );
+  });
+  try {
+    const result = check(dir);
+    assert.ok(
+      !result.notices.some((f) => /`\.cairn` 참조가/.test(f.message)),
+      messages(result)
+    );
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test("적용을 마치고 지운 `.cairn` 을 세팅 기록이 가리켜도 문제가 아니다", () => {
   const dir = project((d) => {
     const path = join(d, ".agents/archive/workstreams/001-cairn-setup");
@@ -545,7 +631,7 @@ test("세팅 워크스트림이 활성이면 골격 참조 검사의 한계를 �
     assert.deepEqual(result.problems, [], messages(result));
     const hit = result.notices.find((f) => /적용이 진행 중입니다/.test(f.message));
     assert.ok(hit, messages(result));
-    assert.match(hit.message, /`\.cairn` 만 봅니다/);
+    assert.match(hit.message, /`\.cairn` 뒤에 경로가 이어진 것만 봅니다/);
     assert.equal(hit.where, ".agents/plans/workstreams/001-cairn-setup");
   } finally {
     rmSync(dir, { recursive: true, force: true });
